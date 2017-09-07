@@ -6,7 +6,7 @@ A portfolio of my Python projects for hobby and self-learning.
 
 ### Games
 - [Tic Tac Toe](https://github.com/yinglinglow/python-portfolio/blob/master/Udemy%20-%20Tic%20Tac%20Toe.ipynb)
-A game of tic tac toe
+A game of Tic Tac Toe
 - [Blackjack](https://github.com/yinglinglow/python-portfolio/blob/master/Udemy%20-%20Blackjack.ipynb)
 A game of Blackjack
 
