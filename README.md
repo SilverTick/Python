@@ -1,12 +1,15 @@
 # Python Portfolio
 
-Repository containing portfolio of my Python projects for hobby and self-learning.
+A portfolio of my Python projects for hobby and self-learning.
 
 ## Content
 
 ### Games
-- Tic Tac Toe
-- Blackjack
+- [Tic Tac Toe](https://github.com/yinglinglow/python-portfolio/blob/master/Udemy%20-%20Tic%20Tac%20Toe.ipynb)
+A game of tic tac toe
+- [Blackjack](https://github.com/yinglinglow/python-portfolio/blob/master/Udemy%20-%20Blackjack.ipynb)
+A game of Blackjack
 
 ### Mathematics
-- Project Euler
+- [Project Euler](https://github.com/yinglinglow/python-portfolio/blob/master/Project%20Euler.ipynb)
+Computational problems from [Project Euler](https://projecteuler.net/)
