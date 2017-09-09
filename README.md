@@ -13,5 +13,3 @@ A game of Blackjack
 ### Mathematics
 - [Project Euler](https://github.com/yinglinglow/python-portfolio/blob/master/Project%20Euler.ipynb)
 Computational problems from [Project Euler](https://projecteuler.net/) (in progress)
-
-test
