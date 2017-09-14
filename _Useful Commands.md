@@ -1,25 +1,50 @@
 #connecting to sqlite (sqlalchemy)
 
 from sqlalchemy import create_engine 
-
 engine = create_engine('sqlite:///census.sqlite') # Create an engine that connects to the census.sqlite file on sqlite
-
 print(engine.table_names())
 
 ---
 
 from sqlalchemy import Table
-
 from sqlalchemy import select
-
 census = Table('census', metadata, autoload=True, autoload_with=engine) # Reflect the census table from the engine: census
-
 stmt = select([census])
 print(stmt)
+results = connection.execute(stmt).fetchall()
+first_row = results[0]
 
+---
+
+#connecting to postgreSQL
+from sqlalchemy import create_engine
+engine = create_engine('postgresql+psycopg2://student:datacamp@postgresql.csrrinzqubik.us-east-1.rds.amazonaws.com:5432/census')
+print(engine.table_names())
+
+"""
+There are three components to the connection string in this exercise: the dialect and driver ('postgresql+psycopg2://'), followed by the username and password ('student:datacamp'), followed by the host and port ('@postgresql.csrrinzqubik.us-east-1.rds.amazonaws.com:5432/'), and finally, the database name ('census'). You will have to pass this string as an argument to create_engine() in order to connect to the database.
+"""
+
+---
+
+stmt = select([census]).where(census.columns.state == 'New York')
 results = connection.execute(stmt).fetchall()
 
-first_row = results[0]
+for result in results:
+    print(result.age, result.sex, result.pop2008)
+
+---
+
+stmt = stmt.where(census.columns.state.in_(states)) #can use in_
+
+from sqlalchemy import and_  #can use and_ also, or_, not_()
+stmt = select([census]).where(
+    # The state of California with a non-male sex
+    and_(census.columns.state == 'California',
+         census.columns.sex != 'M'
+         )
+)
+
 
 #importing data
 
@@ -161,6 +186,11 @@ _.value_counts(normalize=True) #returns percentage of true values
 .dropna().astype(int).value_counts() #removes na and change gype from float to int
 
 #manipulating data
+print("Total score for {} is {}".format(name, score))
+
+
+df.values #makes it into a numpy array
+
 pd.concat() #adds vertically. can just put in a list.
 
 _.columns = ['newtitle'] #rename cols
@@ -194,6 +224,10 @@ df['newcol'][df['col'] < 18] = 1 #assign value to newcol
 df[df.col < df.col.quantile(.95)] #remove those above .95 percentile
 
 #visualising data
+sns.heatmap(df.corr(), square=True, cmap='RdYlGn')
+
+plt.figure() #makes it into a new figure
+
 import matplotlib.pyplot as plt
 _.plot(title='_') #if multiple plots,  include subplots=True; if two plots together, can include secondary_y='' to make nicer
 
@@ -212,11 +246,11 @@ ax.axvline(_.mean(), color='b')
 ax.axvline(_.median(), color='g') #assign plot to ax, then use these to highlight the mean and median as lines
 
 .plot(kind='bar') #for horizontal barplot, use barh
-plt.xticks(rotation=45) #rotates ticks to show nicely
+plt.xticks(rotation=45) #rotates ticks to show nicely. if plt.xticks([0,1], ['No','Yes']), it arranges the ticks n renames it too
 
 plt.xlabel()
 
-sns.countplot(x='_', hue='_', data=df) #x is the values for x axis, hue is the  additional split for each bar. data is the dataframe. count plot gives count for categorical data
+sns.countplot(x='_', hue='_', data=df) #x is the values for x axis, hue is the  additional split for each bar. data is the dataframe. count plot gives count for categorical data. palette='RdBu' gives a red blue color.
 
 sns.barplot(x='_', y='_', data=df, estimator=np.median) #estimator shows the chosen method in the plot. if unspecified it uses mean.
 
@@ -364,3 +398,153 @@ print(my_solution.shape)
 my_solution.to_csv("my_solution_one.csv", index_label = ["PassengerId"])
 df = pd.read_csv('my_solution_one.csv')
 print(df)
+
+
+
+-----
+
+# Import necessary modules
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import train_test_split
+
+# Create feature and target arrays
+X = digits.data
+y = digits.target
+
+# Split into training and test set
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state=42, stratify=y)
+
+# Create a k-NN classifier with 7 neighbors: knn
+knn = KNeighborsClassifier(n_neighbors=7)
+
+# Fit the classifier to the training data
+knn.fit(X_train,y_train)
+
+# Print the accuracy
+print(knn.score(X_test, y_test))
+
+---
+
+# Predict and print the label for the new data point X_new
+new_prediction = knn.predict(X_new)
+print("Prediction: {}".format(new_prediction))
+
+---
+
+# Setup arrays to store train and test accuracies
+neighbors = np.arange(1, 9)
+train_accuracy = np.empty(len(neighbors))
+test_accuracy = np.empty(len(neighbors))
+
+# Loop over different values of k
+for i, k in enumerate(neighbors):
+    # Setup a k-NN Classifier with k neighbors: knn
+    knn = KNeighborsClassifier(n_neighbors=k)
+
+    # Fit the classifier to the training data
+    knn.fit(X_train, y_train)
+    
+    #Compute accuracy on the training set
+    train_accuracy[i] = knn.score(X_train, y_train)
+
+    #Compute accuracy on the testing set
+    test_accuracy[i] = knn.score(X_test, y_test)
+
+# Generate plot
+plt.title('k-NN: Varying Number of Neighbors')
+plt.plot(neighbors, test_accuracy, label = 'Testing Accuracy')
+plt.plot(neighbors, train_accuracy, label = 'Training Accuracy')
+plt.legend()
+plt.xlabel('Number of Neighbors')
+plt.ylabel('Accuracy')
+plt.show()
+
+---
+
+#reshaping
+print("Dimensions of y before reshaping: {}".format(y.shape))
+print("Dimensions of X before reshaping: {}".format(X.shape))
+
+y = y.reshape(-1,1)
+X = X.reshape(-1,1)
+
+print("Dimensions of y after reshaping: {}".format(y.shape))
+print("Dimensions of X after reshaping: {}".format(X.shape))
+
+
+---
+
+#linear regression
+
+from sklearn.linear_model import LinearRegression
+reg = LinearRegression()
+prediction_space = np.linspace(min(X_fertility), max(X_fertility)).reshape(-1,1)
+
+reg.fit(X_fertility, y)
+
+y_pred = reg.predict(prediction_space)
+
+print(reg.score(X_fertility, y))
+
+plt.plot(prediction_space, y_pred, color='black', linewidth=3)
+plt.show()
+
+---
+
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import train_test_split
+
+# Create training and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state=42)
+
+# Create the regressor: reg_all
+reg_all = LinearRegression()
+
+# Fit the regressor to the training data
+reg_all.fit(X_train, y_train)
+
+# Predict on the test data: y_pred
+y_pred = reg_all.predict(X_test)
+
+# Compute and print R^2 and RMSE
+print("R^2: {}".format(reg_all.score(X_test, y_test)))
+rmse = np.sqrt(mean_squared_error(y_test, y_pred))
+print("Root Mean Squared Error: {}".format(rmse))
+
+---
+
+#cross validation
+
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import cross_val_score
+
+reg = LinearRegression()
+
+# Compute 5-fold cross-validation scores: cv_scores
+cv_scores = cross_val_score(reg, X, y, cv=5)
+
+print(cv_scores)
+print("Average 5-Fold CV Score: {}".format(np.mean(cv_scores)))
+
+---
+
+#regularization (lasso) #for feature selection
+
+from sklearn.linear_model import Lasso
+lasso = Lasso(alpha=0.4, normalize=True)
+
+lasso.fit(X,y)
+lasso_coef = lasso.coef_
+print(lasso_coef)
+
+plt.plot(range(len(df_columns)), lasso_coef)
+plt.xticks(range(len(df_columns)), df_columns.values, rotation=60)
+plt.margins(0.02)
+plt.show()
+
+-----
+
+#random
+
+%timeit #insert this before any function and it will execute the function plus time it
