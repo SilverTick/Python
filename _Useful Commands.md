@@ -529,7 +529,7 @@ print("Average 5-Fold CV Score: {}".format(np.mean(cv_scores)))
 
 ---
 
-#regularization (lasso) #for feature selection
+#regularization (lasso) #for feature selection. adds to loss function the absolute coef * alpha (L1 norm)
 
 from sklearn.linear_model import Lasso
 lasso = Lasso(alpha=0.4, normalize=True)
@@ -542,6 +542,8 @@ plt.plot(range(len(df_columns)), lasso_coef)
 plt.xticks(range(len(df_columns)), df_columns.values, rotation=60)
 plt.margins(0.02)
 plt.show()
+
+#regularization (ridge) #L2 norm
 
 -----
 
