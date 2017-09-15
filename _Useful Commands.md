@@ -402,8 +402,8 @@ print(df)
 
 
 -----
+#KNN - for binaries/categorical data
 
-# Import necessary modules
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
 
@@ -474,7 +474,7 @@ print("Dimensions of X after reshaping: {}".format(X.shape))
 
 ---
 
-#linear regression
+#linear regression (for continuous variables/prediction)
 
 from sklearn.linear_model import LinearRegression
 reg = LinearRegression()
@@ -545,6 +545,79 @@ plt.show()
 
 #regularization (ridge) #L2 norm
 
+---
+#confusion matrix & classification report (for assessment of model instead of using accuracy)
+
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, random_state=42)
+
+knn = KNeighborsClassifier(n_neighbors=6)
+
+knn.fit(X_train, y_train)
+
+y_pred = knn.predict(X_test)
+
+print(confusion_matrix(y_test, y_pred)) #Generate the confusion matrix and classification report
+print(classification_report(y_test, y_pred))
+
+---
+
+#logistic regression (for categorical!)
+
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix, classification_report
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4, random_state=42)
+
+logreg = LogisticRegression()
+
+logreg.fit(X_train, y_train)
+
+y_pred = logreg.predict(X_test)
+
+print(confusion_matrix(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+
+---
+
+#roc curve - to assess classifier's perf
+
+from sklearn.metrics import roc_curve
+
+# Compute predicted probabilities: y_pred_prob
+y_pred_prob = logreg.predict_proba(X_test)[:,1]
+
+# Generate ROC curve values: fpr, tpr, thresholds
+fpr, tpr, thresholds = roc_curve(y_test, y_pred_prob)
+
+# Plot ROC curve
+plt.plot([0, 1], [0, 1], 'k--')
+plt.plot(fpr, tpr)
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('ROC Curve')
+plt.show()
+
+---
+
+#area under ROC curve to assess perf
+
+from sklearn.metrics import roc_auc_score
+from sklearn.model_selection import cross_val_score
+
+# Compute predicted probabilities: y_pred_prob
+y_pred_prob = logreg.predict_proba(X_test)[:,1]
+
+# Compute and print AUC score
+print("AUC: {}".format(roc_auc_score(y_test, y_pred_prob)))
+
+# Compute cross-validated AUC scores: cv_auc
+cv_auc = cross_val_score(logreg, X, y, scoring='roc_auc', cv=5)
+
+# Print list of AUC scores
+print("AUC scores computed using 5-fold cross-validation: {}".format(cv_auc))
 -----
 
 #random
