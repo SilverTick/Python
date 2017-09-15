@@ -22,6 +22,5 @@ Enjoy!
 ---
 
 __1 - Getting Data In__
-
-How to import data from a file (CSV, Excel or JSON) using pandas
-Connecting to servers (MSSQL) using pandas
+- How to import data from a file (CSV, Excel or JSON) using pandas
+- Connecting to servers (MSSQL) using pandas
