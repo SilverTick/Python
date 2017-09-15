@@ -1,4 +1,4 @@
-__The Beginner's Python Cheatsheet!__
+## The Beginner's Python Cheatsheet!
 
 This is a reference list of basic Python code, mostly in the context of Data Science and (just a little) Machine Learning.
 
@@ -21,6 +21,7 @@ Enjoy!
 
 ---
 
-_1 - Getting Data In_
+__1 - Getting Data In__
+
 How to import data from a file (CSV, Excel or JSON) using pandas
 Connecting to servers (MSSQL) using pandas
