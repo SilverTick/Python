@@ -61,7 +61,7 @@ df
 ```
 
 
-## Connecting to servers using pandas
+## Connecting to servers (MSSQL) using pandas
 
 https://gist.github.com/hunterowens/08ebbb678255f33bba94
 
