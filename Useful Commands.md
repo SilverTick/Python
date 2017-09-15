@@ -31,7 +31,7 @@ df
 
 ```
 
-If your file is not in the same folder, right click the file to 'Get Info'. Copy the 'Where' location and paste it, such that instead of `'file.csv'` your file path is `'/Users/abc/Documents/untitled folder/file.csv'`
+If your file is not in the same folder, right click the file to 'Get Info'. Copy the 'Where' location and paste it, such that instead of `'file.csv'` your file path is `'/Users/abc/Documents/untitled folder/file.csv'`.
 
 To replace NA values and read dates correctly, use the below code instead. 
 
@@ -43,18 +43,18 @@ df
 
 ```
 
-Replace NAN with the current shortform for your NA values, and replace date_column with the name of your column containing dates.
+Replace `'NAN'` with the current shortform for your NA values, and replace `'date_column'` with the name of your column containing dates.
+
 
 
 ### Excel files
 
-This first method is quicker if you just want a couple of sheets from the excel file. Replace sheetname with the name of the sheet you want to import. Default is the first sheet if sheetname is not specified.
-Again you can include na_values to convert those.
+This first method is quicker if you just want a couple of sheets from the excel file. Replace `'sheetname'` with the name of the sheet you want to import. Default is the first sheet if `sheetname` is not specified. Again you can include `na_values` to convert those.
 
 ```python
 
 import pandas as pd
-pd.read_excel('file.xlsx', na_values='NAN', sheetname='sheetname')
+df = pd.read_excel('file.xlsx', na_values='NAN', sheetname='sheetname')
 
 ```
 
@@ -64,17 +64,23 @@ If you have a huge Excel file with many sheets and you need to explore first, OR
 
 import pandas as pd
 xl = pd.ExcelFile('file.xlsx')
-xl.sheetnames #returns the names of all the sheets in the file
+xl.sheetnames #returns names of all the sheets in the file
 df = xl.parse
 
 ```
 
-##load a JSON file
-with open("_.json") as json_file:
-    json_data = json.load(json_file)
 
-for k in json_data.keys():
-    print(k + ': ', json_data[k]) # Print each key-value pair in json_data
+
+### JSON files
+
+```python
+
+import pandas as pd
+df = pd.read_json('file.json')
+df
+
+```
+
 
 
 ## Connecting to servers using pandas
