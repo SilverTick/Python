@@ -6,9 +6,9 @@ Standard terms used below - replace with your own:
 
 ---
 
-#Getting data in
+# Getting data in
 
-##Connecting to servers using SQLalchemy
+## Connecting to servers using SQLalchemy
 
 from sqlalchemy import create_engine 
 engine = create_engine('_')
