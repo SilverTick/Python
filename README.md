@@ -10,7 +10,7 @@ A reference list of basic Python code, mostly in the context of Data Science and
 ### 2) Parking Project
 A small project as a first trial of my website scraping skills ;)
 - [Parking information](https://github.com/yinglinglow/Python/blob/master/Parking%20Project/Parking_18092017.csv): The result in CSV
-- [Parking information including geo-coordinates] (https://github.com/yinglinglow/Python/blob/master/Parking%20Project/Parking_20170918_geo.csv): Includes geo coordinates (latitude and longtitude) of each carpark, from Google Maps API
+- [Parking information including geo-coordinates](https://github.com/yinglinglow/Python/blob/master/Parking%20Project/Parking_20170918_geo.csv): Includes geo coordinates (latitude and longtitude) of each carpark, from Google Maps API
 
 ### 3) Hobby Projects
 #### Games
