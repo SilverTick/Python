@@ -194,7 +194,7 @@ df.values #makes it into a numpy array
 pd.concat() #adds vertically. can just put in a list.
 
 _.columns = ['newtitle'] #rename cols
-df.rename(columns={'lat': 'Latitude', 'lng': 'Longtitude'}, inplace=True #rename
+df.rename(columns={'lat': 'Latitude', 'lng': 'Longitude'}, inplace=True) #rename
 
 condition = list[list[colname] == 'condition'] #select rows that fulfill the condition in the column
 col = list[list.colname == 'condition']
