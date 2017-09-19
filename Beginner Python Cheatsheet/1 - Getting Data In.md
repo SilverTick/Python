@@ -61,21 +61,21 @@ df
 ```
 
 
-## Connecting to servers (MSSQL) using pandas
+## Connecting to servers such as MSSQL
 
 https://gist.github.com/hunterowens/08ebbb678255f33bba94
 
 Using SQLalchemy to create an engine to connect to SQLite/ PostgreSQL is also possible I believe, but the code seems bulkier.
 
 
-## Importing data from the web
+## Importing data from the web (using Datareader)
 
 Pandas Datareader is able to easily extract data from some sources, including: Yahoo!Finance, Google Finance, World Bank, and more
 Find the full list [here](https://pandas-datareader.readthedocs.io/en/latest/remote_data.html)
 
 https://pandas-datareader.readthedocs.io/en/latest/remote_data.html
 
-## Importing data from the web (scraping the web)
+## Importing/scraping data from the web
 
 ### Tables
 This automatically converts all tables in the webpage of the given url into dataframes.
@@ -104,7 +104,7 @@ for row in df['Address']:
 
 ```
 
-### Text
+### Text (using BeautifulSoup)
 ```python
 
 import pandas as pd
@@ -135,7 +135,7 @@ links = soup.find_all('a') #finds all the links
 For more ways to work the soup, go [here](https://www.crummy.com/software/BeautifulSoup/bs4/doc/#calling-a-tag-is-like-calling-find-all)
 
 
-## Importing data from API
+## Importing data from APIs
 
 I usually request the API to return the information in JSON format. Hence, I read it just as I would a JSON file. Below is an example to loop over numerous urls
 

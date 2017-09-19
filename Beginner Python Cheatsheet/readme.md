@@ -13,7 +13,7 @@ Standard terms used below - replace with your own:
 - _file_ for filenames
 - _database_ for databases
 
-I try to use pandas where possible, just because I really like how clean it is :)
+I usually use pandas where possible, just because it is so much more efficient and straightforward.
 
 I am also just still learning so if there are any areas of improvement, please do share.
 
@@ -22,5 +22,7 @@ Enjoy!
 ---
 
 __1 - Getting Data In__
-- How to import data from a file (CSV, Excel or JSON) using pandas
-- Connecting to servers (MSSQL) using pandas
+- How to import data from a file (CSV, Excel or JSON)
+- Connecting to servers such as MSSQL
+- Importing/scraping data from the web (datareader/BeautifulSoup)
+- Importing data from APIs
