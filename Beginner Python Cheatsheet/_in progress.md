@@ -194,6 +194,7 @@ df.values #makes it into a numpy array
 pd.concat() #adds vertically. can just put in a list.
 
 _.columns = ['newtitle'] #rename cols
+df.rename(columns={'lat': 'Latitude', 'lng': 'Longtitude'}, inplace=True #rename
 
 condition = list[list[colname] == 'condition'] #select rows that fulfill the condition in the column
 col = list[list.colname == 'condition']
@@ -201,6 +202,9 @@ col = list[list.colname == 'condition']
 col.sort_values('colname', ascending=False) #sort by that column, descending
 
 _.set_index('col', inplace=True) #sets the column as the index. instead of assigning result to a new variable, you can also put inplace=True.
+
+df.reset_index(drop=True) #replaces the index
+df.index = range(1,100) #sets index for range of numbers
 
 list.loc[(list.col=='_') & (list['col']==''), 'maxcol'].idxmax #multiple conditions,take the max of maxcol and returns the index
 
@@ -618,8 +622,37 @@ cv_auc = cross_val_score(logreg, X, y, scoring='roc_auc', cv=5)
 
 # Print list of AUC scores
 print("AUC scores computed using 5-fold cross-validation: {}".format(cv_auc))
+
+---
+##model tuning - gridsearch
+# Import necessary modules
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import GridSearchCV
+
+# Setup the hyperparameter grid
+c_space = np.logspace(-5, 8, 15)
+param_grid = {'C': c_space}
+
+# Instantiate a logistic regression classifier: logreg
+logreg = LogisticRegression()
+
+# Instantiate the GridSearchCV object: logreg_cv
+logreg_cv = GridSearchCV(logreg, param_grid, cv=5)
+
+# Fit it to the data
+logreg_cv.fit(X,y)
+
+# Print the tuned parameters and score
+print("Tuned Logistic Regression Parameters: {}".format(logreg_cv.best_params_)) 
+print("Best score is {}".format(logreg_cv.best_score_))
+
+
+
+
+
 -----
 
 #random
 
 %timeit #insert this before any function and it will execute the function plus time it
+
