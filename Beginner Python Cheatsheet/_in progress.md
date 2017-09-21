@@ -186,6 +186,15 @@ _.value_counts(normalize=True) #returns percentage of true values
 .dropna().astype(int).value_counts() #removes na and change gype from float to int
 
 #manipulating data
+
+ecom['Job].value_counts().head(5) # limits to top 5. [:5] also works
+
+ecom[(ecom['CC Provider'] == 'American Express') & (ecom['Purchase Price'] > 95)].count() #two restrictions at one go, use & and (). 
+
+advanced usage of apply:
+sum(ecom['CC Exp Date'].apply(lambda x: x[3:]) == '25')
+ecom['Email'].apply(lambda x: x.split('@')[1]).value_counts().head(5)
+
 print("Total score for {} is {}".format(name, score))
 
 
@@ -654,5 +663,30 @@ print("Best score is {}".format(logreg_cv.best_score_))
 
 #random
 
+shift tab for dropdown explanation
+
 %timeit #insert this before any function and it will execute the function plus time it
 
+np.zeros(10) #creating an array of 10 zeros
+np.zeros((5,5)) # creating a 5x5 matrix of zeros
+
+np.eye(4) #creates an identity matrix
+
+np.linspace(0,10,3) #returns 3 evenly spaced numbers over interval0 to 10 (inclusive) ([0,5,10])
+
+np.array(list) #converts a list to np array. list of lists gives matrix
+
+np.arange(0,10) #range from 0 to 9.
+arr.reshape(3,3) #reshape it to 3x3
+
+OR np.arange(0.01,1.01,0.01).reshape(10,10)
+
+np.random.rand() #random number from uniform dist
+np.random.randn() #random number from normal dist
+
+arr3 = np.arange(12,26)
+index = np.argwhere(arr3==16)
+arr4 = np.delete(arr3, index)
+
+arr4.sum() #sum of all the values in the array
+arr4.sum(axis=0) # sum of all the columns
