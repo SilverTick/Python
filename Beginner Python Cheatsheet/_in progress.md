@@ -187,6 +187,8 @@ _.value_counts(normalize=True) #returns percentage of true values
 
 #manipulating data
 
+carparks['Coord'] = list(zip(df.Latitude, df.Longtitude)) #zips and combines two columns into one column
+
 ecom['Job].value_counts().head(5) # limits to top 5. [:5] also works
 
 ecom[(ecom['CC Provider'] == 'American Express') & (ecom['Purchase Price'] > 95)].count() #two restrictions at one go, use & and (). 
