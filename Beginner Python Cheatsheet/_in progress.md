@@ -187,6 +187,30 @@ _.value_counts(normalize=True) #returns percentage of true values
 
 #manipulating data
 
+df['col2'].unique() #to get unique values. if just want number, nunique.
+df['col2'].value_counts() #values and counts for each value.
+
+df[(df['col']>2) & (df['col']<10)] #selects values and returns tt fulfill conditions
+
+df['col'].apply(function) # applies def function across all values or apply(lambda x: x*2)
+
+pd.concat #merge on rows. if want col, axis=1
+
+pd.merge(left,right,on=['key1','key2], how='inner') #sql
+
+left.join(right) #sql
+
+df.drop('col', axis=1, inplace=True)
+
+df.columns #col info
+df.index #index info
+
+df.sort_values('col2') #sort by col 2
+
+df.isnull() #find null val
+
+df.pivot_table(values='D', index['A','B'], columns=['C'])
+
 carparks['Coord'] = list(zip(df.Latitude, df.Longtitude)) #zips and combines two columns into one column
 
 ecom['Job].value_counts().head(5) # limits to top 5. [:5] also works
@@ -239,6 +263,31 @@ df['newcol'][df['col'] < 18] = 1 #assign value to newcol
 df[df.col < df.col.quantile(.95)] #remove those above .95 percentile
 
 #visualising data
+
+
+plt.tight_layout() #resizes to remove overlap
+
+fig = plt.figure(figsize=(8,2))
+ax = fig.add_axes([0.1,0.1,0.8,0.8])
+ax.plot(x, y, label = 'line one', color='#000000', lw=2, aplha=0.5, linestyle='- .', marker='o', markersize=2) #rgb hexcode, line width is lw which is *2 default, alpha is transparency, linestyle dash or : or different styles, markers * or +, etc. also markerfacecolor, markeredgewidth,markeredgecolor
+ax.plot(x, y2, label = 'line two')
+ax.legend(loc=0) #or location code
+
+fig.savefig('my_pic.png, dpi=200) #saves to a png
+
+fig = plt.figure()
+ax = fig.add_axes([0,0,1,1])
+ax.plot(x,y)
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+ax.set_title('title')
+
+fig, axes = plt.subplots(nrows=3, ncols=3) #3 by 3 subplots
+axes[0].plot(x,y, lw=3, color='blue', ls='--')
+axes[1].plot(x,z, lw=3, color='red')
+
+fig
+
 sns.heatmap(df.corr(), square=True, cmap='RdYlGn')
 
 plt.figure() #makes it into a new figure
