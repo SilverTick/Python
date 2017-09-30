@@ -264,7 +264,6 @@ df[df.col < df.col.quantile(.95)] #remove those above .95 percentile
 
 #visualising data
 
-
 plt.tight_layout() #resizes to remove overlap
 
 fig = plt.figure(figsize=(8,2))
@@ -272,6 +271,16 @@ ax = fig.add_axes([0.1,0.1,0.8,0.8])
 ax.plot(x, y, label = 'line one', color='#000000', lw=2, aplha=0.5, linestyle='- .', marker='o', markersize=2) #rgb hexcode, line width is lw which is *2 default, alpha is transparency, linestyle dash or : or different styles, markers * or +, etc. also markerfacecolor, markeredgewidth,markeredgecolor
 ax.plot(x, y2, label = 'line two')
 ax.legend(loc=0) #or location code
+
+df3.plot.scatter(x='a',y='b', color='red', edgecolor='black', lw=1, s=50, figsize=(12,3))
+df3['a'].plot.hist()
+
+plt.style.use('ggplot')
+df3['a'].plot.hist(alpha=0.5, bins=25)
+
+df3[['a','b']].plot.box()
+df3['d'].plot.density(ls='--', lw=5) #kde
+df3.iloc[:30].plot.area(alpha=0.5).legend(bbox_to_anchor=(1, 0.5))
 
 fig.savefig('my_pic.png, dpi=200) #saves to a png
 
@@ -288,7 +297,9 @@ axes[1].plot(x,z, lw=3, color='red')
 
 fig
 
-sns.heatmap(df.corr(), square=True, cmap='RdYlGn')
+sns.heatmap(df.corr(), square=True, cmap='RdYlGn') #but the dataframe has to be a mtrix. eg df.corr() OR df.pivot_table(index='month', columns='year', values='passengers'). can make linewidths=1
+
+
 
 plt.figure() #makes it into a new figure
 
@@ -298,6 +309,8 @@ _.plot(title='_') #if multiple plots,  include subplots=True; if two plots toget
 plt.show()
 
 import seaborn as sns
+
+titanic = sns.load_dataset('titanic')
 
 sns.distplot('_', bins=50, kde=False, rug=True) #default is histogram, kde=True where the histogram is smoothed, rug=False which does not add markers at bottom of chart to indicate density
 
@@ -309,14 +322,20 @@ for column in list.columns:
 ax.axvline(_.mean(), color='b')
 ax.axvline(_.median(), color='g') #assign plot to ax, then use these to highlight the mean and median as lines
 
+import seaborn first
+
 .plot(kind='bar') #for horizontal barplot, use barh
-plt.xticks(rotation=45) #rotates ticks to show nicely. if plt.xticks([0,1], ['No','Yes']), it arranges the ticks n renames it too
+plt.xticks(rotation=45) #rotates ticks to show nicely. if plt.xticks([0,1], ['No','Yes']), it arranges the ticks n renames it too OR .plot.hist()
+
+df.plot.line(x=df.index, y='')
+df.plot.scatter(x='col_one', y='col_two',c='col_three', cmap='coolwarm') #vary color by col three. if vary by size, use s instead of c.
+df.plot.hexbin(x='', y='', gridsize=2)
 
 plt.xlabel()
 
 sns.countplot(x='_', hue='_', data=df) #x is the values for x axis, hue is the  additional split for each bar. data is the dataframe. count plot gives count for categorical data. palette='RdBu' gives a red blue color.
 
-sns.barplot(x='_', y='_', data=df, estimator=np.median) #estimator shows the chosen method in the plot. if unspecified it uses mean.
+sns.barplot(x='_', y='_', data=df, estimator=np.median) #estimator shows the chosen method in the plot. if unspecified it uses mean. 
 
 sns.pointplot(x='_', y='_', hue='_', data=df) #plot against multiple metrics. x is cat, y is numerical.
 
@@ -324,6 +343,56 @@ sns.boxplot(x='_', y='_', data=df)
 sns.swarmplot(x='_', y='_', data=df)
 
 df.groupby('_')
+
+plt.figure(figsize=(12,3)
+sns.set_context('poster')
+sns.set_style('white') #or ticks, etc
+sns.despine
+
+palette #matplotlib colormap
+
+sns.jointplot(x='',y='',data='') #plots x against y, scatter plot with freqeuncy hist on the side
+
+sns.pairplot(df) #plots all pairs. automate to scatter.
+g = sns.PairGrid(df) # gives the grid
+g.map_upper(plt.scatter)
+g.map_lower(sns.kdeplot) OR sns.displot
+
+g = sns.FacetGrid(data=, col='', row='')
+g.map(sns.displot)
+OR
+g = sns.FacetGrid(data=titanic,col='sex')
+g.map(plt.hist,'age') #or plt.scatter
+
+sns.lmplot(x='', y='', data=) #regression plot
+if col='sex', row='time' #splits into many plots based on the category
+
+###plotly and cufflinks
+import cufflinks as cf
+
+from plotly.offline import download_plotlyjs,init_notebook_mode,plot,iplot
+init_notebook_mode(connected=True)
+cf.go_offline
+
+df.plot()
+df.iplot() #interactive plot
+
+df.iplot(kind='scatter', x='A', y='B', mode='markers')
+df.iplot(kind='bar', x='A', y='B')
+df.iplot(kind='box')
+df.iplot(kind='surface', colorscale='rdylbu')
+df['A'].iplot(kid='hist',bins=50)
+
+df[['a','b']].iplot(kind='spread') #line plot with spread underneath
+
+df.iplot(kind='bubble', x='a', y='b', size='c')
+df.scatter_matrix() #similar to pair plot in seaborn
+
+
+df.count.iplot(kind='bar') #or replace count with sum()
+
+##checking data and cleaning it
+
 
 for country, data in df:
     data.plot(title=country)
@@ -343,7 +412,6 @@ def check_null_or_valid(row_data):
     return ge0
 
 
-##checking data and cleaning it
 
 # Check whether the first column is 'Life expectancy'
 assert df.columns[0] == 'Life expectancy'
