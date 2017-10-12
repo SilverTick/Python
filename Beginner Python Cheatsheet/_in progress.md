@@ -809,3 +809,5 @@ arr4 = np.delete(arr3, index)
 
 arr4.sum() #sum of all the values in the array
 arr4.sum(axis=0) # sum of all the columns
+
+datestring = datetime.strftime(datetime.now(), '%Y%m%d')
