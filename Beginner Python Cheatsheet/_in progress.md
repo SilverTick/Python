@@ -78,6 +78,14 @@ panel.to_frame(). it gives multi-index.
 
 unstacked = df['col'].unstack() #to unstack. can do it without a particular column as well with df.unstack()
 
+df = DataReader(["C", "GS", "JPM", "MS", "WFC"], 'google', start, end)
+
+df2 = df.to_frame().unstack()
+df2.columns.names = ['Stock Info', 'Bank Ticker']
+df3 = df2.stack().stack() #stack all tgt
+df4 = df3.unstack(1) #unstack in a different order
+bank_stocks = df4.unstack()
+
 ##from web HTTP requests
 import requests
 url='http://'
@@ -177,6 +185,8 @@ plt.tight_layout()
 
 top_5 = list['col'].nlargest(n=5) #return top 5
 
+df['zip'].value_counts().head() this returns the top 5 with number of counts
+
 ##for categorical data
 
 df.col.nunique() #to get the number of unique values
@@ -187,6 +197,29 @@ _.value_counts(normalize=True) #returns percentage of true values
 
 #manipulating data
 
+returns.loc['2015-01-01':'2015-12-31'].std() #search by index, get standard deviation
+
+df.idxmin() #returns the index of the min value, for each col. idxmax does same for max
+df.std() #gives std of all cols
+
+returns = pd.DataFrame() #create empty dataframe
+for tick in tickers:
+    returns[tick+' Return'] = bank_stocks[tick]['Close'].pct_change() #creates new column, and adds data to it
+
+df.xs('baz','three') # gets cross axis in multilevel
+bank_stocks.xs(level='Stock Info', key='Close', axis=1)
+
+type(df['timeStamp'].iloc[0]) #to find type of object in the column
+
+df['Hour'] = df['timeStamp'].apply(lambda time: time.hour)
+df['Month'] = df['timeStamp'].apply(lambda time: time.month)
+df['Day of Week'] = df['timeStamp'].apply(lambda time: time.dayofweek)
+df['Date'] = df['timeStamp'].apply(lambda time: time.date())
+
+
+dmap = {0:'Mon',1:'Tue',2:'Wed',3:'Thu',4:'Fri',5:'Sat',6:'Sun'}
+df['Day of Week'] = df['Day of Week'].map(dmap) # map using dictionary
+
 df['col2'].unique() #to get unique values. if just want number, nunique.
 df['col2'].value_counts() #values and counts for each value.
 
@@ -195,6 +228,7 @@ df[(df['col']>2) & (df['col']<10)] #selects values and returns tt fulfill condit
 df['col'].apply(function) # applies def function across all values or apply(lambda x: x*2)
 
 pd.concat #merge on rows. if want col, axis=1
+bank_stocks = pd.concat((C, GS, JPM, MS, WFC),axis=1,keys=tickers) #insert keys to have labels
 
 pd.merge(left,right,on=['key1','key2], how='inner') #sql
 
@@ -213,7 +247,7 @@ df.pivot_table(values='D', index['A','B'], columns=['C'])
 
 carparks['Coord'] = list(zip(df.Latitude, df.Longtitude)) #zips and combines two columns into one column
 
-ecom['Job].value_counts().head(5) # limits to top 5. [:5] also works
+ecom['Job'].value_counts().head(5) # limits to top 5. [:5] also works
 
 ecom[(ecom['CC Provider'] == 'American Express') & (ecom['Purchase Price'] > 95)].count() #two restrictions at one go, use & and (). 
 
@@ -253,6 +287,10 @@ df.drop('colname', axis=1) #drops a column
 df.groupby('colname') #list it to see it
 df.groupby('colname').'col'.mean() #groups by each category in the column, aggregates by mean on 'col'
 
+df_grouped = df.groupby('zip').e.sum().reset_index()
+df_sorted = df_grouped.sort_values('e', ascending=False)
+df_sorted.head(5)
+
 df.groupby(['',''])
 df.agg({'Average': 'mean', 'Median': 'median', 'Standard Deviation': 'std'}) #using the values, and putting the key as header
 
@@ -280,7 +318,7 @@ df3['a'].plot.hist(alpha=0.5, bins=25)
 
 df3[['a','b']].plot.box()
 df3['d'].plot.density(ls='--', lw=5) #kde
-df3.iloc[:30].plot.area(alpha=0.5).legend(bbox_to_anchor=(1, 0.5))
+df3.iloc[:30].plot.area(alpha=0.5).legend(bbox_to_anchor=(1, 0.5)) #move legend out
 
 fig.savefig('my_pic.png, dpi=200) #saves to a png
 
@@ -297,7 +335,14 @@ axes[1].plot(x,z, lw=3, color='red')
 
 fig
 
-sns.heatmap(df.corr(), square=True, cmap='RdYlGn') #but the dataframe has to be a mtrix. eg df.corr() OR df.pivot_table(index='month', columns='year', values='passengers'). can make linewidths=1
+sns.heatmap(df.corr(), square=True, cmap='RdYlGn') #but the dataframe has to be a mtrix. eg df.corr() OR df.pivot_table(index='month', columns='year', values='passengers'). can make linewidths=1. can make annot=True for labels
+
+df.groupby(by=('Day of Week','Hour')).count()['lat'].unstack() #manipulate to make into heatmap. pick on column with the data (apart from the row n col axis, then groupby 'row' and 'col'. unstack - automatically the last level in this case 'col' unstacks first)
+
+
+plt.figure(figsize=(12,6))
+sns.clustermap(heatmap, cmap='viridis')
+plt.show()
 
 
 
@@ -346,14 +391,14 @@ df.groupby('_')
 
 plt.figure(figsize=(12,3)
 sns.set_context('poster')
-sns.set_style('white') #or ticks, etc
+sns.set_style('white') #or ticks, etc, 'whitegrid'
 sns.despine
 
 palette #matplotlib colormap
 
 sns.jointplot(x='',y='',data='') #plots x against y, scatter plot with freqeuncy hist on the side
 
-sns.pairplot(df) #plots all pairs. automate to scatter.
+sns.pairplot(df) #plots all pairs. automate to scatter. if the first column(index) is useless (like, date), use df[1:]
 g = sns.PairGrid(df) # gives the grid
 g.map_upper(plt.scatter)
 g.map_lower(sns.kdeplot) OR sns.displot
