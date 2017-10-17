@@ -680,6 +680,9 @@ reg_all = LinearRegression()
 
 # Fit the regressor to the training data
 reg_all.fit(X_train, y_train)
+print(reg_all.intercept_) #can do this if want to check the intercept
+reg_all.coef_ #gives an array of all the coefs for each variable
+coef_df = pd.DataFrame(reg_all.coef_, X_train.columns, columns=['Coeff']) #creates a dataframe with coeff as the column, the column names as the row titles.
 
 # Predict on the test data: y_pred
 y_pred = reg_all.predict(X_test)
@@ -826,6 +829,13 @@ print("Best score is {}".format(logreg_cv.best_score_))
 -----
 
 #random
+
+1) check info
+2) check describe
+3) can get column names (df.columns)
+4) sns.pairplot(df) - if not too many
+5) distplot(df['price']) - usually check ur target variable
+6) sns.heatmap(df.corr(), annot=True)
 
 shift tab for dropdown explanation
 

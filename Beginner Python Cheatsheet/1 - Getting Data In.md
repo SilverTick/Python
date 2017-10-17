@@ -70,10 +70,20 @@ Using SQLalchemy to create an engine to connect to SQLite/ PostgreSQL is also po
 
 ## Importing data from the web (using Datareader)
 
-Pandas Datareader is able to easily extract data from some sources, including: Yahoo!Finance, Google Finance, World Bank, and more
-Find the full list [here](https://pandas-datareader.readthedocs.io/en/latest/remote_data.html)
+Pandas Datareader is able to easily extract data from some sources, including: Yahoo!Finance, Google Finance, World Bank, and more. Find the full list [here](https://pandas-datareader.readthedocs.io/en/latest/remote_data.html)
 
-https://pandas-datareader.readthedocs.io/en/latest/remote_data.html
+```python
+
+from pandas_datareader.data import DataReader 
+from datetime import date 
+
+start = date(YYYY, MM, DD) #for example, 2010-1-1
+end = date(YYYY, MM, DD) #default date is today
+ticker = 'AAPL' #the ticker symbol of your stock
+data_source = 'google' #the source of your data. find the full list from the above link
+stock_prices = DataReader(ticker, data_source, start, end)
+
+```
 
 ## Importing/scraping data from the web
 
