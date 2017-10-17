@@ -32,7 +32,8 @@ __1 - Getting Data In__
 - Importing data from APIs
 
 __2 - Exploring the Data__
-- Basic data exploration (numeric and categorical)
+- Data exploration on the basic data structure and selecting data
+- Exploring numerical and categorical data
 
 __3 - Cleaning the Data__
 

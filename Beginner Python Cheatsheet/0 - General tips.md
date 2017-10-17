@@ -1,4 +1,4 @@
-#General tips & tricks
+# General tips & tricks
 
 Random formats for reference, useful or interesting tips that I find helpful/speeds things up!
 
@@ -24,5 +24,5 @@ df['Income per Capita (,000)'] = df['Income per Capita'] // 1000 #creates a new 
 returns = pd.DataFrame() #create empty dataframe named return
 for tick in tickers:
     returns[tick+' Return'] = bank_stocks[tick]['Close'].pct_change() #creates new column, with the percentage change in Close
-    
+
 ```

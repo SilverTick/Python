@@ -5,7 +5,7 @@ __Table of Contents__
  * Data exploration
     - [Basic data structure](#structure)
     - [Data selection](#selection)
-    - [Numeric data exploration](#numeric)
+    - [Numerical data exploration](#numerical)
     - [Categorical data exploration](#categorical)
 
 <a id="structure"></a> 
@@ -32,8 +32,8 @@ df.xs(level='name_of_level', key='name_of_col_in_level', axis=1) #default gets r
 
 ```
 
-<a id="numeric"></a> 
-### Numeric data exploration
+<a id="numerical"></a> 
+### Numerical data exploration
 
 ```python
 df.describe() #returns count, mean, median, std, max, min, quartiles
