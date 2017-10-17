@@ -175,7 +175,8 @@ _.tail()
 ##for numeric data
 
 _.describe() #includes mean, median and std
-_.mode() #use floor division operator // to add a new column for floats
+_.mode() 
+
 _.quantile([0.25,0.75])
 
 quantiles = np.arange(0.1,1.0,0.1)
@@ -185,22 +186,26 @@ plt.tight_layout()
 
 top_5 = list['col'].nlargest(n=5) #return top 5
 
-df['zip'].value_counts().head() this returns the top 5 with number of counts
-
 ##for categorical data
+
+df['zip'].value_counts().head() this returns the top 5 with number of counts
 
 df.col.nunique() #to get the number of unique values
 df.apply(lambda column: column.nunique()) #repeats this across cols
 _.value_counts() #counts true values/ how many times each unique value occurs
 _.value_counts(normalize=True) #returns percentage of true values
-.dropna().astype(int).value_counts() #removes na and change gype from float to int
+.dropna().astype(int).value_counts() #removes na and change type from float to int
 
-#manipulating data
 
 returns.loc['2015-01-01':'2015-12-31'].std() #search by index, get standard deviation
 
 df.idxmin() #returns the index of the min value, for each col. idxmax does same for max
 df.std() #gives std of all cols
+
+#manipulating data
+
+income['Income per Capita (,000)'] = income['Income per Capita'] // 1000 #use floor division operator // to add a new column for floats
+
 
 returns = pd.DataFrame() #create empty dataframe
 for tick in tickers:
@@ -208,6 +213,13 @@ for tick in tickers:
 
 df.xs('baz','three') # gets cross axis in multilevel
 bank_stocks.xs(level='Stock Info', key='Close', axis=1)
+
+#STOPPED HERE
+#
+#
+
+
+
 
 type(df['timeStamp'].iloc[0]) #to find type of object in the column
 
@@ -411,6 +423,14 @@ g.map(plt.hist,'age') #or plt.scatter
 
 sns.lmplot(x='', y='', data=) #regression plot
 if col='sex', row='time' #splits into many plots based on the category
+
+
+quantiles = np.arange(0.1,1.0,0.1)
+deciles = _.quantile(quantiles)
+deciles.plot(kind='bar', title='_')
+plt.tight_layout()
+
+
 
 ###plotly and cufflinks
 import cufflinks as cf

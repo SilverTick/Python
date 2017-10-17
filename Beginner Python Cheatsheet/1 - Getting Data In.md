@@ -1,7 +1,7 @@
 
 # 1 - Getting data in
 
-**Table of Contents**
+__Table of Contents__
  * Import data from a file 
     - [CSV](#csv)
     - [Excel](#excel)
@@ -33,7 +33,7 @@ df
 
 If your file is not in the same folder, right click the file to 'Get Info'. Copy the 'Where' location and paste it, such that instead of `'file.csv'` your file path is `'/Users/abc/Documents/untitled folder/file.csv'`.
 
-To replace NA values and read dates correctly, use the below code instead. 
+To read null values and dates correctly, use the below code instead. 
 
 ```python
 

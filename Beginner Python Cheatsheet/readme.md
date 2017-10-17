@@ -21,8 +21,19 @@ Enjoy!
 
 ---
 
+__0 - General tips & tricks__
+
+Random formats for reference, or useful or interesting tips that I find helpful/speeds things up!
+
 __1 - Getting Data In__
-- How to import data from a file (CSV, Excel or JSON)
+- Importing data from a file (CSV, Excel or JSON)
 - Connecting to servers such as MSSQL
-- Importing/scraping data from the web (datareader/BeautifulSoup)
+- Importing/scraping finance data, tables or text from the web (datareader/BeautifulSoup)
 - Importing data from APIs
+
+__2 - Exploring the Data__
+- Basic data exploration (numeric and categorical)
+
+__3 - Cleaning the Data__
+
+__4 - Manipulating the Data__
