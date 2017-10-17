@@ -1,14 +1,22 @@
 
-# Getting data in
+# 1 - Getting data in
 
 **Table of Contents**
  * Import data from a file 
     - [CSV](#csv)
     - [Excel](#excel)
     - [JSON](#json)
-Connecting to servers such as MSSQL
-Importing/scraping data from the web (datareader/BeautifulSoup)
-Importing data from APIs
+
+ * Connecting to servers
+    - [MSSQL](#mssql)
+
+ * Scraping data from the web
+    - [Finance data (using Pandas Datareader)](#datareader)
+    - [Tables (using Pandas)](#tables)
+    - [Text (using BeautifulSoup)](#text)
+
+ * Importing data from APIs
+    - [API](#api)
 
 ## Importing data from a file
 
@@ -37,8 +45,8 @@ df
 
 Replace `'NAN'` with the current shortform for your NA values, and replace `'date_column'` with the name of your column containing dates.
 
-
-### Excel files <a id="excel"></a>
+ <a id="excel"></a>
+### Excel files
 
 This first method is quicker if you just want a couple of sheets from the excel file. Replace `'sheetname'` with the name of the sheet you want to import. Default is the first sheet if `sheetname` is not specified. Again you can include `na_values` to convert those.
 
@@ -60,8 +68,8 @@ df = xl.parse
 
 ```
 
-
-### JSON files <a id="json"></a>
+<a id="json"></a>
+### JSON files 
 
 ```python
 
@@ -71,15 +79,17 @@ df
 
 ```
 
-
+<a id="mssql"></a>
 ## Connecting to servers such as MSSQL
 
 https://gist.github.com/hunterowens/08ebbb678255f33bba94
 
 Using SQLalchemy to create an engine to connect to SQLite/ PostgreSQL is also possible I believe, but the code seems bulkier.
 
+<a id="datareader"></a>
+## Importing/ scraping data from the webdata from the web 
 
-## Importing data from the web (using Datareader)
+### Finance data (using Pandas Datareader)
 
 Pandas Datareader is able to easily extract data from some sources, including: Yahoo!Finance, Google Finance, World Bank, and more. Find the full list [here](https://pandas-datareader.readthedocs.io/en/latest/remote_data.html)
 
@@ -100,10 +110,9 @@ stock_prices = DataReader(ticker, data_source, start, end)
 
 If you use a list for the ticker it works as well but the result is a panel (3d array). Unless you are very comfortable with unstacking, I would advise against using a list.
 
+<a id="tables"></a>
+### Tables (using Pandas)
 
-## Importing/scraping data from the web
-
-### Tables
 This automatically converts all tables in the webpage of the given url into dataframes.
 In this example I have saved them all to dfs.
 To select a particular table after this, say I want the 5th table, I can call df[6].
@@ -129,7 +138,7 @@ for row in df['Address']:
     dfs = pd.read_html(url)
 
 ```
-
+<a id="text"></a>
 ### Text (using BeautifulSoup)
 ```python
 
@@ -160,7 +169,7 @@ links = soup.find_all('a') #finds all the links
 
 For more ways to work the soup, go [here](https://www.crummy.com/software/BeautifulSoup/bs4/doc/#calling-a-tag-is-like-calling-find-all)
 
-
+<a id="api"></a>
 ## Importing data from APIs
 
 I usually request the API to return the information in JSON format. Hence, I read it just as I would a JSON file. Below is an example to loop over numerous urls
