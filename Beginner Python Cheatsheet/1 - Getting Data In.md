@@ -1,9 +1,18 @@
 
 # Getting data in
 
+**Table of Contents**
+ * Import data from a file 
+    - [CSV](#csv)
+    - [Excel](#excel)
+    - [JSON](#json)
+Connecting to servers such as MSSQL
+Importing/scraping data from the web (datareader/BeautifulSoup)
+Importing data from APIs
+
 ## Importing data from a file
 
-### CSV files
+### CSV files <a id="csv"></a>
 ```python
 
 import pandas as pd
@@ -27,7 +36,7 @@ df
 Replace `'NAN'` with the current shortform for your NA values, and replace `'date_column'` with the name of your column containing dates.
 
 
-### Excel files
+### Excel files <a id="excel"></a>
 
 This first method is quicker if you just want a couple of sheets from the excel file. Replace `'sheetname'` with the name of the sheet you want to import. Default is the first sheet if `sheetname` is not specified. Again you can include `na_values` to convert those.
 
@@ -50,7 +59,7 @@ df = xl.parse
 ```
 
 
-### JSON files
+### JSON files <a id="json"></a>
 
 ```python
 
@@ -77,13 +86,18 @@ Pandas Datareader is able to easily extract data from some sources, including: Y
 from pandas_datareader.data import DataReader 
 from datetime import date 
 
+#Set your variables
 start = date(YYYY, MM, DD) #for example, 2010-1-1
 end = date(YYYY, MM, DD) #default date is today
-ticker = 'AAPL' #the ticker symbol of your stock
 data_source = 'google' #the source of your data. find the full list from the above link
+ticker = 'AAPL' #the ticker symbol of your stock
+
 stock_prices = DataReader(ticker, data_source, start, end)
 
 ```
+
+If you use a list for the ticker it works as well but the result is a panel (3d array). Unless you are very comfortable with unstacking, I would advise against using a list.
+
 
 ## Importing/scraping data from the web
 
@@ -161,3 +175,5 @@ for row in df['Address']:
     longitude = address['results'][0]['geometry']['location']['lng']
 
 ```
+
+If you struggle to decipher your JSON, some people find it helpful to go [here](http://jsonviewer.stack.hu/). I find it easier to just unwrap it layer by layer...
