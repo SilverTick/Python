@@ -12,7 +12,9 @@ Importing data from APIs
 
 ## Importing data from a file
 
-### CSV files <a id="csv"></a>
+<a id="csv"></a> 
+### CSV files  
+
 ```python
 
 import pandas as pd
