@@ -217,7 +217,9 @@ bank_stocks.xs(level='Stock Info', key='Close', axis=1)
 #STOPPED HERE
 #
 #
+ float( )
 
+ pd.to_numeric()
 
 
 
@@ -711,6 +713,14 @@ y_pred = reg_all.predict(X_test)
 print("R^2: {}".format(reg_all.score(X_test, y_test)))
 rmse = np.sqrt(mean_squared_error(y_test, y_pred))
 print("Root Mean Squared Error: {}".format(rmse))
+
+
+#check for accuracy
+can do a quick scatterplot to see if they are one straight line.
+plt.scatter(y_test, predictions)
+
+if distribution plot of residuals is normal, means the model used is correct
+sns.distplot((y_test-predictions))
 
 ---
 
