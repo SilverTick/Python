@@ -221,6 +221,10 @@ bank_stocks.xs(level='Stock Info', key='Close', axis=1)
 
  pd.to_numeric()
 
+error_bad_lines=False
+header=None
+sep='delimiter'
+skiprows=2
 
 
 type(df['timeStamp'].iloc[0]) #to find type of object in the column
