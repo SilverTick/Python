@@ -18,6 +18,8 @@ df.head() #returns top 5 rows. for just 3 rows, use df.head(3)
 df.tail() #returns bottom 5 rows
 df.columns #gives all column names in a list
 
+type(df['col'].iloc[0]) #takes one example from the column and identifies type of object in the column
+
 ```
 <a id="selection"></a> 
 ## Data selection
@@ -47,6 +49,7 @@ You can also use individual commands: `df.mean()`, `df.mode()`, `df.std()` etc.
 For quantiles, if you want to get more than just `df.quantile([0.25, 0.5, 0.75])`, you can use the below:
 
 ```python
+import numpy as np
 quantiles = np.arange(0.1,1.0,0.1) #returns an array of numbers evenly spaced at a distance of 0.1, from 0.1 to 1.0
 deciles = df.quantile(quantiles)
 

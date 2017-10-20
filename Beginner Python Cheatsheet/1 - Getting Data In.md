@@ -38,12 +38,12 @@ To read null values and dates correctly, use the below code instead.
 ```python
 
 import pandas as pd
-df = pd.read_csv('file.csv', na_values='NAN', parse_dates=['date_column'])
+df = pd.read_csv('file.csv', na_values='NAN', parse_dates=['date_column'], error_bad_lines=False, header=None)
 df
 
 ```
 
-Replace `'NAN'` with the current shortform for your NA values, and replace `'date_column'` with the name of your column containing dates.
+Replace `'NAN'` with the current shortform for your NA values, and replace `'date_column'` with the name of your column containing dates. If somehow there is an error reading the file, try tweaking around with: header=None, sep='delimiter', skiprows=2 (this skips the first two rows which might not be data), or error_bad_lines=False (this skips errors).
 
  <a id="excel"></a>
 ### Excel files

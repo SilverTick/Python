@@ -214,9 +214,7 @@ for tick in tickers:
 df.xs('baz','three') # gets cross axis in multilevel
 bank_stocks.xs(level='Stock Info', key='Close', axis=1)
 
-#STOPPED HERE
-#
-#
+
  float( )
 
  pd.to_numeric()
@@ -225,6 +223,33 @@ error_bad_lines=False
 header=None
 sep='delimiter'
 skiprows=2
+
+print('MAE: {0}, MSE: {1}, RMSE: {2}'.format(MAE,MSE,RMSE))
+
+
+
+sns.heatmap(df.isnull(), ytickslabels=False, cbar=False, cmap='viridis')
+
+
+sns.set_palette("GnBu_d")
+sns.set_style('whitegrid')
+
+
+print('Coefficients: \n', lm.coef_)
+
+
+
+
+coef = pd.DataFrame(lm.coef_,x.columns)
+coef.columns = ['Coef']
+
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib as plt
+%matplotlib inline
+
+
 
 
 type(df['timeStamp'].iloc[0]) #to find type of object in the column
@@ -237,6 +262,12 @@ df['Date'] = df['timeStamp'].apply(lambda time: time.date())
 
 dmap = {0:'Mon',1:'Tue',2:'Wed',3:'Thu',4:'Fri',5:'Sat',6:'Sun'}
 df['Day of Week'] = df['Day of Week'].map(dmap) # map using dictionary
+
+#STOPPED HERE
+#
+#
+
+
 
 df['col2'].unique() #to get unique values. if just want number, nunique.
 df['col2'].value_counts() #values and counts for each value.
@@ -415,6 +446,7 @@ sns.despine
 palette #matplotlib colormap
 
 sns.jointplot(x='',y='',data='') #plots x against y, scatter plot with freqeuncy hist on the side
+can change type = 'hex' or others, color='red'
 
 sns.pairplot(df) #plots all pairs. automate to scatter. if the first column(index) is useless (like, date), use df[1:]
 g = sns.PairGrid(df) # gives the grid
@@ -565,7 +597,35 @@ from sklearn import tree
 
 train["Age"] = train["Age"].fillna(train["Age"].median()) #substitute missing values with median values, or most common category.
 
+ALTERNATIVELY:
+check boxplot if age is related to pclass
+sns.boxplot(x='pclass', y='age', data=train)
+
+def impute_age(cols):
+    age = cols[0]
+    pclass = cols[1]
+
+    if pd.isnull(age):
+        if pclass == 1:
+            return 37
+        elif pclass == 2:
+            return 29
+        else:
+            return 24
+    else:
+        return age
+
+train['age'] = train[['age','pclass']].apply(impute_age, axis=1)
+
 train["Embarked"][train["Embarked"] == "S"] = 0 #convert all categorical to numerical values
+
+
+can use get dummies instead to convert to 0,1:
+sex = pd.get_dummies(train['sex'],drop_first=True)
+embark = pd.get_dummies(train['embarked'],drop_first=True)
+
+
+train = pd.concat([train,sex,embark], axis=1)
 
 --
 
@@ -776,9 +836,20 @@ y_pred = knn.predict(X_test)
 print(confusion_matrix(y_test, y_pred)) #Generate the confusion matrix and classification report
 print(classification_report(y_test, y_pred))
 
+[[TN,FP]
+[FN,TP]]
+
+
 ---
 
 #logistic regression (for categorical!)
+
+*usually good to do a countplot of the target variable first for a sense of the ratio
+sns.countplot(x='survived', hue='sex', data=train)
+
+import cufflinks as cf
+cf.go_offline
+df.iplot(kind='hist', bins=50)
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix, classification_report

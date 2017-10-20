@@ -38,3 +38,7 @@ __2 - Exploring the Data__
 __3 - Cleaning the Data__
 
 __4 - Manipulating the Data__
+
+__5 - Visualizing the Data__
+
+__6 - Machine Learning__
