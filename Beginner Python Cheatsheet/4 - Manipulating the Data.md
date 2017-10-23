@@ -63,14 +63,9 @@ df.values #makes it into a numpy array
 <a id="link"></a> 
 ## Code snippets
 
-Below are some useful snippets of code.
+Below are some useful snippets of code:
 
-Creating a new column for different units
-
-```python
-df['Income per Capita (,000)'] = df['Income per Capita'] // 1000 #creates a new column in thousands
-
-```
+Renaming columns
 
 ```python
 df.columns = ['col_1','col_2','col_3'] #rename cols according to names in new list
@@ -91,6 +86,14 @@ dmap = {0:'Mon',1:'Tue',2:'Wed',3:'Thu',4:'Fri',5:'Sat',6:'Sun'}
 df['Day of Week'] = df['Day of Week'].map(dmap) #map integers to actual day using dictionary
 
 ```
+Creating a new column for different units
+
+```python
+df['Income per Capita (,000)'] = df['Income per Capita'] // 1000 #creates a new column in thousands
+
+```
+
+Creating a new column for percentage change
 
 ```python
 import pandas as pd
@@ -98,9 +101,5 @@ returns = pd.DataFrame() #create empty dataframe named return
 
 for tick in tickers:
     returns[tick+' Return'] = bank_stocks[tick]['Close'].pct_change() #creates new column, with the percentage change in Close
-
-```
-
-```python
 
 ```

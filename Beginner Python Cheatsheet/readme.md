@@ -15,6 +15,7 @@ Standard terms used below - replace with your own:
 
 I usually use pandas where possible, just because it is so much more efficient and straightforward.
 
+This is very much still a work in progress so do pardon the messiness for now.
 I am also just still learning so if there are any areas of improvement, please do share.
 
 Enjoy!
@@ -32,13 +33,24 @@ __1 - Getting Data In__
 - Importing data from APIs
 
 __2 - Exploring the Data__
-- Data exploration on the basic data structure and selecting data
-- Exploring numerical and categorical data
+- Exploring the data structure
+- Data selection
+- Numerical data exploration
+- Categorical data exploration
 
 __3 - Cleaning the Data__
 
 __4 - Manipulating the Data__
+- Changing data structure
+- Changing data type
+- Some useful snippets of code
 
 __5 - Visualizing the Data__
+- Using Pandas
+- Using matplotlib
+- Using seaborn
 
 __6 - Machine Learning__
+- General Format
+- Linear Regression
+- Logistic Regression
