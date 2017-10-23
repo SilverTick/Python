@@ -263,12 +263,6 @@ df['Date'] = df['timeStamp'].apply(lambda time: time.date())
 dmap = {0:'Mon',1:'Tue',2:'Wed',3:'Thu',4:'Fri',5:'Sat',6:'Sun'}
 df['Day of Week'] = df['Day of Week'].map(dmap) # map using dictionary
 
-#STOPPED HERE
-#
-#
-
-
-
 df['col2'].unique() #to get unique values. if just want number, nunique.
 df['col2'].value_counts() #values and counts for each value.
 
@@ -276,12 +270,14 @@ df[(df['col']>2) & (df['col']<10)] #selects values and returns tt fulfill condit
 
 df['col'].apply(function) # applies def function across all values or apply(lambda x: x*2)
 
+
 pd.concat #merge on rows. if want col, axis=1
 bank_stocks = pd.concat((C, GS, JPM, MS, WFC),axis=1,keys=tickers) #insert keys to have labels
 
 pd.merge(left,right,on=['key1','key2], how='inner') #sql
 
 left.join(right) #sql
+
 
 df.drop('col', axis=1, inplace=True)
 
@@ -294,30 +290,34 @@ df.isnull() #find null val
 
 df.pivot_table(values='D', index['A','B'], columns=['C'])
 
+
 carparks['Coord'] = list(zip(df.Latitude, df.Longtitude)) #zips and combines two columns into one column
 
-ecom['Job'].value_counts().head(5) # limits to top 5. [:5] also works
 
 ecom[(ecom['CC Provider'] == 'American Express') & (ecom['Purchase Price'] > 95)].count() #two restrictions at one go, use & and (). 
+
 
 advanced usage of apply:
 sum(ecom['CC Exp Date'].apply(lambda x: x[3:]) == '25')
 ecom['Email'].apply(lambda x: x.split('@')[1]).value_counts().head(5)
 
-print("Total score for {} is {}".format(name, score))
 
+print("Total score for {} is {}".format(name, score))
 
 df.values #makes it into a numpy array
 
 pd.concat() #adds vertically. can just put in a list.
 
 _.columns = ['newtitle'] #rename cols
+
 df.rename(columns={'lat': 'Latitude', 'lng': 'Longitude'}, inplace=True) #rename
 
-condition = list[list[colname] == 'condition'] #select rows that fulfill the condition in the column
-col = list[list.colname == 'condition']
-
 col.sort_values('colname', ascending=False) #sort by that column, descending
+
+#STOPPED HERE
+#
+#
+
 
 _.set_index('col', inplace=True) #sets the column as the index. instead of assigning result to a new variable, you can also put inplace=True.
 
@@ -453,7 +453,7 @@ g = sns.PairGrid(df) # gives the grid
 g.map_upper(plt.scatter)
 g.map_lower(sns.kdeplot) OR sns.displot
 
-g = sns.FacetGrid(data=, col='', row='')
+g = sns.FacetGrid(data=, col='', row='') #if put col=, separates into two plots by the col 
 g.map(sns.displot)
 OR
 g = sns.FacetGrid(data=titanic,col='sex')
@@ -662,7 +662,17 @@ my_solution.to_csv("my_solution_one.csv", index_label = ["PassengerId"])
 df = pd.read_csv('my_solution_one.csv')
 print(df)
 
+---
 
+from sklearn.ensemble import RandomForestClassifier
+rfc = RandomForestClassifier(n_estimators=200)
+
+rfc.fit(X_train, y_train)
+rfc_pred = rfc.predict(X_test)
+
+print(confusion_matrix(y_test,rfc_pred))
+print('\n')
+print(classification_report(y_test,rfc_pred))
 
 -----
 #KNN - for binaries/categorical data
@@ -685,6 +695,32 @@ knn.fit(X_train,y_train)
 
 # Print the accuracy
 print(knn.score(X_test, y_test))
+
+---
+
+for knn, important to ensure similar scales
+
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler
+scaler.fit(df.drop('TARGET CLASS', axis=1))
+scaled_features = scaler.transform(df.drop('TARGET CLASS', axis=1))
+df_feat = pd.DataFrame(scaled_features, columns=df.columns[:-1]) #gives the scaled data in a df
+
+---
+
+error_rate = []
+
+for i in range(1,40):
+    knn = KNeighboursClassifier(n_neighbours=i)
+    knn.fit(X_train,y_train)
+    pred_i = knn.predict(X_test)
+    error_rate.append(np.mean(pred_i != y_test))
+
+plt.figure(figsize=10,6))
+plt.plot(range(1,40),error_rate, color='blue', linestyle='dashed', marker='o',markerfacecolor='red',markersize=10)
+plt.title('Error Rate vs K value')
+plt.xlabel('K')
+plt.ylabel('Error Rate')
 
 ---
 

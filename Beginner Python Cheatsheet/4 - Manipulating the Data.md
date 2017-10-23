@@ -13,6 +13,40 @@ __Table of Contents__
 <a id="structure"></a> 
 ## Changing data structure
 
+Joining dataframes/ adding rows/ adding columns
+```python
+import pandas as pd
+pd.concat([df, df2]) #appends df2 at the bottom of df as additional rows. to have labels, include labels as a list to keys. to append as new columns instead of rows, include axis=1 like so: pd.concat([df,df2], axis=1, keys=[tablename1, tablename2])
+
+pd.merge(df_left,df_right,on=['key1','key2'], how='inner') #for users familiar with sql method of merging
+df_left.join(df_right) #an alternative to the above
+
+df['new_col'] = 'ABC' #broadcasting: creates a new column, all values will be 'ABC'. 
+df['new_col'] = list #creates new column with values corresponding to the list.
+
+zipped = zip(df['col_a'], df['col_b']) #returns a list of tuples, with values from col_a and col_b. to display in a list, use list(zip(df['col_a'], df['col_b']))
+zip(*zipped) #to unzip. to display it in a list, use list(zip(*zipped))
+
+```
+
+Dropping rows/ columns
+```python
+df.drop('col', axis=1, inplace=True) #drops the specified column. inplace=True automatically saves it to df without an additional step, axis=1 sets it as a column instead of row.
+
+```
+
+Sorting
+```python
+df.sort_values('col') #sorts values according to 'col'. for descending order, include ascending=False like so: df.sort_values('col', ascending=False) 
+
+```
+
+Pivot table
+```python
+df.pivot_table(values='D', index['A','B'], columns=['C']) #gives a multi-index by columns A and B; takes C as the list of columns
+
+```
+
 <a id="type"></a> 
 ## Changing data type
 
@@ -21,6 +55,8 @@ float('123') #changes an integer or string to a float
 
 import pandas as pd
 pd.to_numeric(df['col']) #converts to numeric
+
+df.values #makes it into a numpy array
 
 ```
 
@@ -33,6 +69,12 @@ Creating a new column for different units
 
 ```python
 df['Income per Capita (,000)'] = df['Income per Capita'] // 1000 #creates a new column in thousands
+
+```
+
+```python
+df.columns = ['col_1','col_2','col_3'] #rename cols according to names in new list
+df.rename(columns={'col_1': 'col_1_new', 'col_2': 'col_2_new'}, inplace=True) #rename specific columns - specify old names and new names. inplace=True automatically saves changes to df
 
 ```
 
@@ -56,5 +98,9 @@ returns = pd.DataFrame() #create empty dataframe named return
 
 for tick in tickers:
     returns[tick+' Return'] = bank_stocks[tick]['Close'].pct_change() #creates new column, with the percentage change in Close
+
+```
+
+```python
 
 ```

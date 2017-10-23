@@ -20,11 +20,17 @@ np.arange(0.1,1.0,0.1) #returns an array of numbers evenly spaced at a distance 
 
 ```
 
+```python
+df['Email'].apply(lambda x: x.split('@')[1]) #splits emails by @ and takes the username
+
+```
+
 General format in treating a dataset:
 
 ```python
 import pandas as pd
 import numpy as np
+
 import seaborn as sns
 import matplotlib as plt
 %matplotlib inline #to display plots inline in jupyter notebook

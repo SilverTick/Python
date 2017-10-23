@@ -16,9 +16,16 @@ __Table of Contents__
 df.info #returns info on shape, type of data, etc
 df.head() #returns top 5 rows. for just 3 rows, use df.head(3)
 df.tail() #returns bottom 5 rows
-df.columns #gives all column names in a list
+df.columns #returns all column names in a list
+df.index #returns index info
 
 type(df['col'].iloc[0]) #takes one example from the column and identifies type of object in the column
+
+df.isnull() #returns dataframe of same size, and a boolean for each value whether it is null or not
+df.isnull().any() #returns a boolean for each column, whether it contains any null values or not
+df.isnull().sum() # returns the number of null values in each column
+
+
 
 ```
 <a id="selection"></a> 
@@ -31,6 +38,11 @@ df.iloc[0] #search by index. this returns first row
 df.iloc[:,0] #this gives all rows, first column.
 
 df.xs(level='name_of_level', key='name_of_col_in_level', axis=1) #default gets row in a multilevel dataframe. adding axis=1 takes column instead.
+
+df[df['col'] == 'condition'] #returns rows in dataframe that fulfill the condition in 'col'
+df[df['col'] == 'condition']['col2'] #returns rows in ['col2'] that fulfill the condition in 'col'
+
+df[(df['col']>2) & (df['col']<10)] #selects and returns values that fulfill conditions - use & for multiple conditions and () each condition
 
 ```
 
@@ -62,6 +74,8 @@ deciles = df.quantile(quantiles)
 df['col'].value_counts() #returns the number of times each unique value occurs. for just top 5, use df['col'].value_counts().head()
 
 df['col'].value_counts(normalize=True) #returns the same, in percentage
+
+df['col2'].unique() #to get all the unique values
 
 df['col'].nunique() #returns the number of unique values
 
