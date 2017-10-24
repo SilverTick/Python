@@ -314,40 +314,8 @@ df.rename(columns={'lat': 'Latitude', 'lng': 'Longitude'}, inplace=True) #rename
 
 col.sort_values('colname', ascending=False) #sort by that column, descending
 
-#STOPPED HERE
-#
-#
 
 
-_.set_index('col', inplace=True) #sets the column as the index. instead of assigning result to a new variable, you can also put inplace=True.
-
-df.reset_index(drop=True) #replaces the index
-df.index = range(1,100) #sets index for range of numbers
-
-list.loc[(list.col=='_') & (list['col']==''), 'maxcol'].idxmax #multiple conditions,take the max of maxcol and returns the index
-
-list = _.index.tolist() #converts index to list. useful when u find the top 5 and want to convert it to list
-
-.dropna()
-.fillna()
-.astype(int)
-.div(1e6) #divides by 1million
-df.drop('colname', axis=1) #drops a column
-df.groupby('colname') #list it to see it
-df.groupby('colname').'col'.mean() #groups by each category in the column, aggregates by mean on 'col'
-
-df_grouped = df.groupby('zip').e.sum().reset_index()
-df_sorted = df_grouped.sort_values('e', ascending=False)
-df_sorted.head(5)
-
-df.groupby(['',''])
-df.agg({'Average': 'mean', 'Median': 'median', 'Standard Deviation': 'std'}) #using the values, and putting the key as header
-
-df['newcol'] = float('NaN') #create new col
-df['newcol'][df['col'] < 18] = 1 #assign value to newcol 
-
-#exclude outliers
-df[df.col < df.col.quantile(.95)] #remove those above .95 percentile
 
 #visualising data
 
@@ -359,11 +327,15 @@ ax.plot(x, y, label = 'line one', color='#000000', lw=2, aplha=0.5, linestyle='-
 ax.plot(x, y2, label = 'line two')
 ax.legend(loc=0) #or location code
 
+
+
 df3.plot.scatter(x='a',y='b', color='red', edgecolor='black', lw=1, s=50, figsize=(12,3))
 df3['a'].plot.hist()
 
+
 plt.style.use('ggplot')
 df3['a'].plot.hist(alpha=0.5, bins=25)
+
 
 df3[['a','b']].plot.box()
 df3['d'].plot.density(ls='--', lw=5) #kde
@@ -378,11 +350,11 @@ ax.set_xlabel('x')
 ax.set_ylabel('y')
 ax.set_title('title')
 
-fig, axes = plt.subplots(nrows=3, ncols=3) #3 by 3 subplots
-axes[0].plot(x,y, lw=3, color='blue', ls='--')
-axes[1].plot(x,z, lw=3, color='red')
+#STOPPED HERE
+#
+#
 
-fig
+
 
 sns.heatmap(df.corr(), square=True, cmap='RdYlGn') #but the dataframe has to be a mtrix. eg df.corr() OR df.pivot_table(index='month', columns='year', values='passengers'). can make linewidths=1. can make annot=True for labels
 
@@ -448,10 +420,23 @@ palette #matplotlib colormap
 sns.jointplot(x='',y='',data='') #plots x against y, scatter plot with freqeuncy hist on the side
 can change type = 'hex' or others, color='red'
 
+
+sns.set_style('darkgrid')
+setosa = iris[iris['species'] == 'setosa']
+sns.kdeplot(data=setosa['sepal_width'], 
+            data2=setosa['sepal_length'], 
+            cmap='plasma', shade=True, shade_lowest=False)
+
+sns.pairplot(iris, hue='species', palette='Dark2')
+
 sns.pairplot(df) #plots all pairs. automate to scatter. if the first column(index) is useless (like, date), use df[1:]
 g = sns.PairGrid(df) # gives the grid
 g.map_upper(plt.scatter)
 g.map_lower(sns.kdeplot) OR sns.displot
+
+sns.set_style('darkgrid')
+g = sns.FacetGrid(data=df, hue='Private', size=6, aspect=2, palette='coolwarm')
+g.map(plt.hist,'Outstate', alpha=0.5, bins=20)
 
 g = sns.FacetGrid(data=, col='', row='') #if put col=, separates into two plots by the col 
 g.map(sns.displot)
@@ -964,10 +949,48 @@ print("Tuned Logistic Regression Parameters: {}".format(logreg_cv.best_params_))
 print("Best score is {}".format(logreg_cv.best_score_))
 
 
+---
+
+# support vector machine
+
+from sklearn.svm import SVC
+model = SVC()
+model.fit(X_train,y_train)
+predictions = model.predict(X_test)
 
 
+from sklearn.model_selection import GridSearchCV
 
+param_grid = {'C':[0.1,1,10,100,1000], 'gamma':[1,0.1,0.01,0.001,0.0001]}
+
+grid = GridSearchCV(SVC(),param_grid, verbose=3)
+
+grid.fit(X_train, y_train)
+
+grid.best_params_
+
+grid.best_estimator_
+
+grid_predictions = grid.predict(X_test)
+
+print(confusion_matrix(y_test,grid_predictions))
 -----
+
+# k means clustering (unsupervised)
+find patterns
+
+from sklearn.cluster import KMeans
+
+kmeans = KMeans(n_clusters=4)
+kmeans.fit(data[0])
+kmeans.cluster_centers_ #gives the centers
+kmeans.labels_ 
+
+
+ax1.scatter(data[0],[:,0], data[0][:,1],c=kmeans.labels_, cmap='rainbow')
+
+
+---
 
 #random
 
@@ -1007,3 +1030,46 @@ arr4.sum() #sum of all the values in the array
 arr4.sum(axis=0) # sum of all the columns
 
 datestring = datetime.strftime(datetime.now(), '%Y%m%d')
+
+
+
+df.loc['Cazenovia College']['Grad.Rate'] #to get the value
+
+df['Grad.Rate']['Cazenovia College'] = 100 #to set it as a new value
+
+
+
+_.set_index('col', inplace=True) #sets the column as the index. instead of assigning result to a new variable, you can also put inplace=True.
+
+df.reset_index(drop=True) #replaces the index
+df.index = range(1,100) #sets index for range of numbers
+
+list.loc[(list.col=='_') & (list['col']==''), 'maxcol'].idxmax #multiple conditions,take the max of maxcol and returns the index
+
+list = _.index.tolist() #converts index to list. useful when u find the top 5 and want to convert it to list
+
+.dropna()
+.fillna()
+.astype(int)
+.div(1e6) #divides by 1million
+df.drop('colname', axis=1) #drops a column
+df.groupby('colname') #list it to see it
+df.groupby('colname').'col'.mean() #groups by each category in the column, aggregates by mean on 'col'
+
+df_grouped = df.groupby('zip').e.sum().reset_index()
+df_sorted = df_grouped.sort_values('e', ascending=False)
+df_sorted.head(5)
+
+df.groupby(['',''])
+df.agg({'Average': 'mean', 'Median': 'median', 'Standard Deviation': 'std'}) #using the values, and putting the key as header
+
+df['newcol'] = float('NaN') #create new col
+df['newcol'][df['col'] < 18] = 1 #assign value to newcol 
+
+#exclude outliers
+df[df.col < df.col.quantile(.95)] #remove those above .95 percentile
+
+
+fig, axes = plt.subplots(nrows=3, ncols=3) #3 by 3 subplots
+axes[0].plot(x,y, lw=3, color='blue', ls='--')
+axes[1].plot(x,z, lw=3, color='red')
