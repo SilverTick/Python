@@ -38,13 +38,15 @@ To customise the aesthetics (tab+shift for full details): e.g.
     color - insert 'b' for blue, 'r' for red, etc or rgb hexcode (#000000). e.g. `color='red'`
     edgecolor - ('black', etc) e.g. `edgecolor='black'`
     marker - 'o', '*', '+', etc
-others include: markerfacecolor, markeredgewidth, markeredgecolor, etc
+    
+    others include: markerfacecolor, markeredgewidth, markeredgecolor, etc
 
 To remove overlaps, use `plt.tight_layout()` - automatic reshuffling to minimize overlaps
 
 To move the legend - append `.legend()` to the end of the code e.g. 
 
 `df.hist().legend(bbox_to_anchor=(1,1))` or `df.hist().legend(loc=0)`
+
     - use strings (such as 'upper right') or, location code (integers)  (tab+shift for full details)
     - outside of the graph - use bbox_to_anchor=(1,1)
 
@@ -70,8 +72,9 @@ plt.plot(df['col1'], df['col2']) #single line graph - col1 on x, col2 on y
 plt.plot(df) #plots entire df (can be multiple lines)
 
 ```
-Aesthetics is similar as above in pandas (which is based off of matplotlib)
-e.g. `plt.plot(x,y, label = 'line one', color='#000000', lw=2, alpha=0.5, linestyle='- .', marker='o', markersize=5)`
+Aesthetics is similar as above in pandas (which is based off of matplotlib) e.g. 
+
+`plt.plot(x,y, label = 'line one', color='#000000', lw=2, alpha=0.5, linestyle='- .', marker='o', markersize=5)`
 
 Minor tweaks in certain code:
 
