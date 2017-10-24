@@ -4,10 +4,7 @@
 __Table of Contents__
  * Data visualisation
     - [Pandas](#pandas)
-        - Single line graph
     - [matplotlib](#matplotlib)
-        - Single line graph
-
     - [seaborn](#seaborn)
 
 <a id="pandas"></a>
@@ -30,8 +27,9 @@ df.plot.area() #area under graph
 
 ```
 
-To customise the aesthetics (tab+shift for full details):
-e.g. `df.plot.scatter(x='col1',y='col2', color='red', edgecolor='black', lw=1, s=50, figsize=(12,3))`
+To customise the aesthetics (tab+shift for full details): e.g. 
+
+`df.plot.scatter(x='col1',y='col2', color='red', edgecolor='black', lw=1, s=50, figsize=(12,3))`
 
     figsize - size of figure e.g. `figsize=(12,3)`
     alpha - transparency (0 to 1) e.g.`alpha=0.5`
@@ -44,10 +42,12 @@ others include: markerfacecolor, markeredgewidth, markeredgecolor, etc
 
 To remove overlaps, use `plt.tight_layout()` - automatic reshuffling to minimize overlaps
 
-To place the legend:
-    use strings (such as 'upper right') or location code (such as 0, 1, 2, 3) to assign location (tab+shift for full details)
-    outside of the graph - use bbox_to_anchor=(1,1)
-to move the legend - append `.legend()` to the end of the code e.g. `df.hist().legend(bbox_to_anchor=(1,1))` or `df.hist().legend(loc=0)`
+To move the legend - append `.legend()` to the end of the code e.g. 
+
+`df.hist().legend(bbox_to_anchor=(1,1))` or `df.hist().legend(loc=0)`
+    - use strings (such as 'upper right') or, location code (integers)  (tab+shift for full details)
+    - outside of the graph - use bbox_to_anchor=(1,1)
+
 
 To label all lines at one go, use `plt.legend(legend_list)` where `legend_list = ['line1', 'line2', 'line3']`
 
