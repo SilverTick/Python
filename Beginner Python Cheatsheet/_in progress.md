@@ -350,26 +350,22 @@ ax.set_xlabel('x')
 ax.set_ylabel('y')
 ax.set_title('title')
 
-#STOPPED HERE
-#
-#
-
-
 
 sns.heatmap(df.corr(), square=True, cmap='RdYlGn') #but the dataframe has to be a mtrix. eg df.corr() OR df.pivot_table(index='month', columns='year', values='passengers'). can make linewidths=1. can make annot=True for labels
 
-df.groupby(by=('Day of Week','Hour')).count()['lat'].unstack() #manipulate to make into heatmap. pick on column with the data (apart from the row n col axis, then groupby 'row' and 'col'. unstack - automatically the last level in this case 'col' unstacks first)
+
 
 
 plt.figure(figsize=(12,6))
 sns.clustermap(heatmap, cmap='viridis')
 plt.show()
 
-
-
 plt.figure() #makes it into a new figure
 
 import matplotlib.pyplot as plt
+
+
+
 _.plot(title='_') #if multiple plots,  include subplots=True; if two plots together, can include secondary_y='' to make nicer
 
 plt.show()
@@ -377,6 +373,7 @@ plt.show()
 import seaborn as sns
 
 titanic = sns.load_dataset('titanic')
+
 
 sns.distplot('_', bins=50, kde=False, rug=True) #default is histogram, kde=True where the histogram is smoothed, rug=False which does not add markers at bottom of chart to indicate density
 
@@ -390,8 +387,16 @@ ax.axvline(_.median(), color='g') #assign plot to ax, then use these to highligh
 
 import seaborn first
 
+
+
 .plot(kind='bar') #for horizontal barplot, use barh
+
+
+
 plt.xticks(rotation=45) #rotates ticks to show nicely. if plt.xticks([0,1], ['No','Yes']), it arranges the ticks n renames it too OR .plot.hist()
+
+
+
 
 df.plot.line(x=df.index, y='')
 df.plot.scatter(x='col_one', y='col_two',c='col_three', cmap='coolwarm') #vary color by col three. if vary by size, use s instead of c.
@@ -401,12 +406,20 @@ plt.xlabel()
 
 sns.countplot(x='_', hue='_', data=df) #x is the values for x axis, hue is the  additional split for each bar. data is the dataframe. count plot gives count for categorical data. palette='RdBu' gives a red blue color.
 
+
+
 sns.barplot(x='_', y='_', data=df, estimator=np.median) #estimator shows the chosen method in the plot. if unspecified it uses mean. 
 
 sns.pointplot(x='_', y='_', hue='_', data=df) #plot against multiple metrics. x is cat, y is numerical.
 
 sns.boxplot(x='_', y='_', data=df)
 sns.swarmplot(x='_', y='_', data=df)
+
+
+#STOPPED HERE
+#
+#
+
 
 df.groupby('_')
 
@@ -1073,3 +1086,43 @@ df[df.col < df.col.quantile(.95)] #remove those above .95 percentile
 fig, axes = plt.subplots(nrows=3, ncols=3) #3 by 3 subplots
 axes[0].plot(x,y, lw=3, color='blue', ls='--')
 axes[1].plot(x,z, lw=3, color='red')
+
+
+#opening files type: sklearn.datasets.base.Bunch (like dictionary)
+cancer = load_breast_cancer()
+cancer.keys()
+print(cancer['DESCR'])
+df = pd.DataFrame(cancer['data'], columns=cancer['feature_names'])
+
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+scaler.fit(df)
+
+scaled_data = scaler.transform(df)
+
+#PCA
+from sklearn.decomposition import PCA
+pca = PCA(n_components=2)
+
+pca.fit(scaled_data)
+x_pca = pca.transform(scaled_data)
+
+scaled_data.shape
+x_pca.shape #shows cut down to 2 instead of 30 original
+
+plt.figure(figsize=(8,6))
+plt.scatter(x_pca[:,0], x_pca[:,1], c=cancer['target'], cmap='plasma')
+plt.xlabel('First Principle Component')
+plt.ylabel('Second Principle Component')
+
+pca.components_
+
+df_comp = pd.DataFrame(pca.components_, columns=cancer['feature_names'])
+
+plt.figure(figsize=(12,6))
+sns.heatmap(df_comp, cmap='plasma')
+
+
+---
+
+df.groupby(by=('Day of Week','Hour')).count()['lat'].unstack() #manipulate to make into heatmap. pick on column with the data (apart from the row n col axis, then groupby 'row' and 'col'. unstack - automatically the last level in this case 'col' unstacks first)
