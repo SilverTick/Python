@@ -4,12 +4,12 @@
 __Table of Contents__
  * Data visualisation
     - [General] (#general)
-    - [Pandas](#pandas)
     - [matplotlib](#matplotlib)
     - [seaborn](#seaborn)
+    - [Pandas](#pandas)
 
 <a id="general"></a>
-### general
+### General
 
 General code that can be used across all, since pandas and seaborn are based off of matplotlib.
 On a side note for beginners, I highly recommend to learn matplotlib without pandas first if you intend to customise your plots.
