@@ -7,6 +7,7 @@ __Table of Contents__
     - [matplotlib](#matplotlib)
     - [seaborn](#seaborn)
     - [Pandas](#pandas)
+    - [Plotly](#plotly)
 
 <a id="general"></a>
 ### General
@@ -126,8 +127,8 @@ titanic = sns.load_dataset('titanic') #to load dataset
 
 ```python
 #for aesthetics
-sns.set_palette("GnBu_d")
-sns.set_style('whitegrid')
+sns.set_palette('GnBu_d')
+sns.set_style('whitegrid') #or darkgrid, etc
 
 sns.countplot(x='col1', data=df) #data is the dataframe. count plot gives count for categorical data. palette='RdBu' gives a red blue color.
 sns.distplot(x='col1', data=df, bins=50, kde=False, rug=True) #histogram; kde=True smooths the histogram, rug=False removes markers at bottom of chart to indicate density
@@ -137,6 +138,13 @@ sns.boxplot(x='col1', y='col2', data=df)
 sns.swarmplot(x='col1', y='col2', data=df)
 sns.heatmap(df, square=True) #dataframe has to be a matrix, eg df.corr()
 sns.clustermap(df) #similar to a heatmap but clustered
+sns.jointplot(x='col1', y='col2', data=df) #plots x against y, scatter plot with frequency hist on the side, can change type = 'hex'
+sns.regplot(x='col1', y='col2', data=df) #scatterplot with regression line (to remove, fit_reg=False)
+sns.kdeplot(x='col1', y='col2', data=df) #kde
+sns.pairplot(df) #plots all variables against each other
+sns.lmplot(x='col1', y='col2', data=df) #regression plot. also able to split into subplots by col='col1', row='col2'
+
+sns.despine() #removes spines from plot
 
 ```
 
@@ -144,12 +152,14 @@ To customise the aesthetics (tab+shift for full details): e.g.
 
 ```python
 sns.heatmap(df, square=True, cmap='RdYlGn', linewidths=3)
+sns.kdeplot(x='col1', y='col2', data=df, cmap='plasma', shade=True, shade_lowest=False)
 
 ```
 cmap - color schemes like 'RdYlGn', 'viridis', etc. e.g. `cmap='RdYlGn'`
-palette - color palette e.g. `palette='RdBu'`
+palette - color palette e.g. `palette='RdBu'`, `palette='Dark2'`
 annot - labels e.g. `annot=True`
 hue - additional split within graph, by the value in this column e.g. `hue='col3'`
+
 
 Plotting multiple figures
 
@@ -178,6 +188,7 @@ df.plot.area() #area under graph
 df.plot.hexbin(x='col1', y='col2', gridsize=2) #change gridsize for size of hexagons
 df.plot(kind='bar') #barplot
 df.plot(kind='barh') #horizontal barplot
+df.scatter_matrix() #similar to pair plot in seaborn
 
 ```
 
@@ -187,3 +198,27 @@ To include the title - `df.plot(title='_')`
 To include figsize - `df.plot(figsize=(12,3))`
 To include the legend - `df.hist().legend(bbox_to_anchor=(1,1))`
 To plot subplots - `df.plot(subplots=True)`
+
+<a id="plotly"></a>
+### Plotly (and cufflinks)
+
+```python
+import cufflinks as cf
+
+from plotly.offline import download_plotlyjs,init_notebook_mode,plot,iplot 
+init_notebook_mode(connected=True)
+cf.go_offline #to work offline
+
+df.plot() #normal plot
+df.iplot() #interactive plot
+
+#examples
+df.iplot(kind='scatter', x='col1', y='col2', mode='markers')
+df.iplot(kind='bar', x='col1', y='col2') #another type: df.count.iplot(kind='bar'). also possible to replace count with sum()
+df.iplot(kind='box')
+df.iplot(kind='surface')
+df.iplot(kind='bubble', x='col1', y='col2', size='col3')
+df['col1'].iplot(kind='hist')
+df[['col1','col2']].iplot(kind='spread') #line plot with spread underneath
+
+```

@@ -416,13 +416,6 @@ sns.boxplot(x='_', y='_', data=df)
 sns.swarmplot(x='_', y='_', data=df)
 
 
-#STOPPED HERE
-#
-#
-
-
-df.groupby('_')
-
 plt.figure(figsize=(12,3)
 sns.set_context('poster')
 sns.set_style('white') #or ticks, etc, 'whitegrid'
@@ -430,12 +423,13 @@ sns.despine
 
 palette #matplotlib colormap
 
+
 sns.jointplot(x='',y='',data='') #plots x against y, scatter plot with freqeuncy hist on the side
 can change type = 'hex' or others, color='red'
 
-
 sns.set_style('darkgrid')
-setosa = iris[iris['species'] == 'setosa']
+
+
 sns.kdeplot(data=setosa['sepal_width'], 
             data2=setosa['sepal_length'], 
             cmap='plasma', shade=True, shade_lowest=False)
@@ -447,6 +441,7 @@ g = sns.PairGrid(df) # gives the grid
 g.map_upper(plt.scatter)
 g.map_lower(sns.kdeplot) OR sns.displot
 
+
 sns.set_style('darkgrid')
 g = sns.FacetGrid(data=df, hue='Private', size=6, aspect=2, palette='coolwarm')
 g.map(plt.hist,'Outstate', alpha=0.5, bins=20)
@@ -457,6 +452,8 @@ OR
 g = sns.FacetGrid(data=titanic,col='sex')
 g.map(plt.hist,'age') #or plt.scatter
 
+
+
 sns.lmplot(x='', y='', data=) #regression plot
 if col='sex', row='time' #splits into many plots based on the category
 
@@ -465,6 +462,12 @@ quantiles = np.arange(0.1,1.0,0.1)
 deciles = _.quantile(quantiles)
 deciles.plot(kind='bar', title='_')
 plt.tight_layout()
+
+
+#STOPPED HERE
+#
+#
+
 
 
 
@@ -1200,3 +1203,36 @@ print(tfidf4) #numerical vectors
 tfidf_transformer.idf_[bow_transformer.vocabulary_['university]]
 
 messages_tfidf = tfidf_transformer.transform(messages_bow)
+
+
+from sklearn.naive_bayes import MultinomialNB
+spam_detect_model = MultinomialNB().fit(messages_tfidf,messages['label'])
+
+spam_detect_model.predict(tfidf4)[0]
+
+all_pred = spam_detect_model.predict(messages_tfidf)
+
+
+
+from sklearn.pipeline import Pipeline
+pipeline = Pipeline([
+    ('bow', CountVectorizer()), # strings to token integer counts
+    ('tfidf', TfidfTransformer()), #integer counts to weighted TD_IDF scores
+    ('classifier', MultinomialNB()) #train on TF-IDF vectors w/ Naive Bayes classifier
+])
+
+
+pipeline.fit(msg_train,label_train)
+
+predictions = pipeline.predict(msg_test)
+
+from sklearn.metrics import classification_report
+
+print(classification_report(label_test,predictions))
+
+
+---
+
+
+df.groupby('col').mean()
+df.groupby('col').mean().corr() #returns correlation

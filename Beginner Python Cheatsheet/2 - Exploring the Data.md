@@ -44,6 +44,8 @@ df[df['col'] == 'condition']['col2'] #returns rows in ['col2'] that fulfill the 
 
 df[(df['col']>2) & (df['col']<10)] #selects and returns values that fulfill conditions - use & for multiple conditions and () each condition
 
+df[(df['col'] == 1) | (df['col'] == 5)] #OR condition
+
 ```
 
 <a id="numerical"></a> 
