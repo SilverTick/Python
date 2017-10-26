@@ -1126,3 +1126,77 @@ sns.heatmap(df_comp, cmap='plasma')
 ---
 
 df.groupby(by=('Day of Week','Hour')).count()['lat'].unstack() #manipulate to make into heatmap. pick on column with the data (apart from the row n col axis, then groupby 'row' and 'col'. unstack - automatically the last level in this case 'col' unstacks first)
+
+---
+
+messages = [line.rstrip() for line in open('smsspamcollection/SMSSpamCollection')]
+print(len(messages)) #get a sense of how many messages
+
+for message_no, message in enumerate(messages[:10]):
+    print(message_no, message)
+    print('\n') #get a sense of the messages and spacing to see that this is tab separated (tsv)
+
+so
+messages = pd.read_csv('smsspamcollection/SMSSpamCollection', sep='\t',
+                           names=["label", "message"])
+messages.head()
+
+
+---
+
+import string
+mess = 'Sameple message!'
+nopunc = [c for c in mess if c not in string.punctuation]
+
+from nltk.corpus import stopwords
+stopwords.words('english')
+
+nopunc = ''.join(nopunc)
+nopunc.split()
+
+clean_mess = [word for word in nopunc.split() if word.lower not in stopwards.words('english')]
+
+def text_process(mess):
+    """
+    1. remove punctuation
+    2. remove stop words
+    3. return list of clean text words
+    """
+
+    nopunc = [char for char in mess if char not in string.punctuation]
+    nopunc = ''.join(nopunc)
+    return [word for word in nopunc.split() if word.lower() not in stopwords.words('english')]
+
+messages['message'].head(5).apply(text_process)
+
+
+from sklearn.feature_extraction.text import CountVectorizer
+bow_transformer = CountVectorizer(analyzer=text_process).fit(messages['message']) #creates a big matrxix for every word in every message
+
+print(len(bow_transformer.vocabulary_))
+
+mess4 = messages['message'][3]
+bow4 = bow_transformer.transform([mess4])
+print(bow4)
+bow_transformer.get_feature_names()[4068]
+
+messages_bow = bow_transformer.transform(messages['message'])
+print('Shape of Sparse Matrix: ', messages_bow.shape)
+
+messages_bow.nnz #non zero occurences
+
+sparsity = (100 * messages_bow.nnz / (messages_bow.shape[0] * messages_bow.shape[1]))
+
+print('sparsity: {}'.format(sparsity))
+
+
+
+from sklearn.feature_Extraction.text import TfidfTransformer
+tfidf_transformer = TfidfTransformer().fit(messages_bow)
+
+tfidf4 = tfidf_transformer.transform(bow4)
+print(tfidf4) #numerical vectors
+
+tfidf_transformer.idf_[bow_transformer.vocabulary_['university]]
+
+messages_tfidf = tfidf_transformer.transform(messages_bow)

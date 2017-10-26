@@ -154,8 +154,8 @@ hue - additional split within graph, by the value in this column e.g. `hue='col3
 Plotting multiple figures
 
 ```python
-g = sns.FacetGrid(tips, col="col1",  row="col2") #splits total data into respective subplots 
-g = g.map(plt.hist, "col_total")
+g = sns.FacetGrid(df, col="col1",  row="col2") #splits total data into respective subplots, cut by col1 and col2
+g = g.map(plt.hist, "col_total") #col_total is the column that you wan to split
 
 ```
 
