@@ -3,7 +3,7 @@
 
 __Table of Contents__
  * Data visualisation
-    - [General] (#general)
+    - [General](#general)
     - [matplotlib](#matplotlib)
     - [seaborn](#seaborn)
     - [Pandas](#pandas)
