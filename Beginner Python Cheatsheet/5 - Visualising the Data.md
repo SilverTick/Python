@@ -12,13 +12,16 @@ __Table of Contents__
 <a id="general"></a>
 ### General
 
-General code that can be used across all, since pandas and seaborn are based off of matplotlib.
+General code that can be used across matplotlib, pandas, or seaborn, since the latter are based off of matplotlib.
+
 On a side note for beginners, I highly recommend to learn matplotlib without pandas first if you intend to customise your plots.
 
 Also, the below is more for individuals who already know how to structure their code for plotting - this is just a quick list for reference on what to use when you need to achieve something.
 
 ```python
+#to start
 %matplotlib inline #for jupyter notebook to display plots automatically without plt.show()
+
 plt.style.use('ggplot') #displays plots in ggplot style
 
 plt.figure(figsize=(8,2)) #creates a new figure and sets figure size
@@ -34,9 +37,11 @@ plt.legend(legend_list) #to label all lines at one go
 plt.legend(loc='upper right') #set legend, use strings (such as 'upper right') or, location code (integers)
 plt.legend(bbox_to_anchor=(1,1)) #sets legend outside of figure
 
+#ticks
 plt.xticks(rotation=45) #rotates ticks.
 plt.xticks([0,1], ['No','Yes']) #renames ticks
 
+#others
 plt.tight_layout() #automatic reshuffling to minimize overlaps
 plt.savefig('picture.png', dpi=200) #saves as an image. put this instead of plt.show()
 
@@ -48,19 +53,19 @@ To customise the aesthetics (tab+shift for full details): e.g.
 df.plot.scatter(x='col1',y='col2', c='col3', color='red', edgecolor='black', lw=1, s=50, figsize=(12,3))
 
 ```
-bins - for histogram: number of 'bars' (intervals) e.g. `bins=10`
+- bins - for histogram: number of 'bars' (intervals) e.g. `bins=10`
 
-c - varies color by the value in this column e.g. `c='col3'`
-s - varies size by the value in this column e.g. `s='col4'`
+- c - varies color by the value in this column e.g. `c='col3'`
+- s - varies size by the value in this column e.g. `s='col4'`
 
-color - insert 'b' for blue, 'r' for red, etc or rgb hexcode (#000000). e.g. `color='red'`
-cmap - uses a color palette, for when varied colors are required e.g. `cmap='coolwarm'`
+- color - insert 'b' for blue, 'r' for red, etc or rgb hexcode (#000000). e.g. `color='red'`
+- cmap - uses a color palette, for when varied colors are required e.g. `cmap='coolwarm'`
 
-alpha - transparency (0 to 1) e.g.`alpha=0.5`
-lw - linewidth (integers) e.g. `lw=3`
-ls - linestyle ('-', '--', ':', etc) e.g.`ls='--'`
-edgecolor - ('black', etc) e.g. `edgecolor='black'`
-marker - 'o', '*', '+', etc
+- alpha - transparency (0 to 1) e.g.`alpha=0.5`
+- lw - linewidth (integers) e.g. `lw=3`
+- ls - linestyle ('-', '--', ':', etc) e.g.`ls='--'`
+- edgecolor - ('black', etc) e.g. `edgecolor='black'`
+- marker - 'o', '*', '+', etc
     
 Others include: markerfacecolor, markeredgewidth, markeredgecolor, etc
 
@@ -155,13 +160,10 @@ sns.heatmap(df, square=True, cmap='RdYlGn', linewidths=3)
 sns.kdeplot(x='col1', y='col2', data=df, cmap='plasma', shade=True, shade_lowest=False)
 
 ```
-cmap - color schemes like 'RdYlGn', 'viridis', etc. e.g. `cmap='RdYlGn'`
-
-palette - color palette e.g. `palette='RdBu'`, `palette='Dark2'`
-
-annot - labels e.g. `annot=True`
-
-hue - additional split within graph, by the value in this column e.g. `hue='col3'`
+- cmap - color schemes like 'RdYlGn', 'viridis', etc. e.g. `cmap='RdYlGn'`
+- palette - color palette e.g. `palette='RdBu'`, `palette='Dark2'`
+- annot - labels e.g. `annot=True`
+- hue - additional split within graph, by the value in this column e.g. `hue='col3'`
 
 
 Plotting multiple figures
