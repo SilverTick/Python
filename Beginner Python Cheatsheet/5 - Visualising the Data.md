@@ -156,8 +156,11 @@ sns.kdeplot(x='col1', y='col2', data=df, cmap='plasma', shade=True, shade_lowest
 
 ```
 cmap - color schemes like 'RdYlGn', 'viridis', etc. e.g. `cmap='RdYlGn'`
+
 palette - color palette e.g. `palette='RdBu'`, `palette='Dark2'`
+
 annot - labels e.g. `annot=True`
+
 hue - additional split within graph, by the value in this column e.g. `hue='col3'`
 
 
@@ -195,8 +198,11 @@ df.scatter_matrix() #similar to pair plot in seaborn
 Shortcuts for pandas formatting:
 
 To include the title - `df.plot(title='_')`
+
 To include figsize - `df.plot(figsize=(12,3))`
+
 To include the legend - `df.hist().legend(bbox_to_anchor=(1,1))`
+
 To plot subplots - `df.plot(subplots=True)`
 
 <a id="plotly"></a>
