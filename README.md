@@ -8,7 +8,7 @@ A reference list of basic Python code, mostly in the context of Data Science and
 - [Cheatsheet](https://github.com/yinglinglow/Python/tree/master/Beginner%20Python%20Cheatsheet)
 
 ### 2) Parking Project
-A small project as a first trial of my website scraping skills ;)
+A small project as a first trial of my website scraping skills ;) (in progress)
 - [Parking information](https://github.com/yinglinglow/Python/blob/master/Parking%20Project/Parking_20170918.csv): Carpark names, addresses and fees in CSV
 - [Parking information including geo-coordinates](https://github.com/yinglinglow/Python/blob/master/Parking%20Project/Parking_20170918_geo.csv): Includes geo coordinates (latitude and longtitude) of each carpark, from Google Maps API
 
