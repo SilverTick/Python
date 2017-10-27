@@ -53,21 +53,21 @@ To customise the aesthetics (tab+shift for full details): e.g.
 df.plot.scatter(x='col1',y='col2', c='col3', color='red', edgecolor='black', lw=1, s=50, figsize=(12,3))
 
 ```
-- bins - for histogram: number of 'bars' (intervals) e.g. `bins=10`
+- bins: for histogram; number of 'bars' (intervals) e.g. `bins=10`
 
-- c - varies color by the value in this column e.g. `c='col3'`
-- s - varies size by the value in this column e.g. `s='col4'`
+- c: varies color by the value in this column e.g. `c='col3'`
+- s: varies size by the value in this column e.g. `s='col4'`
 
-- color - insert 'b' for blue, 'r' for red, etc or rgb hexcode (#000000). e.g. `color='red'`
-- cmap - uses a color palette, for when varied colors are required e.g. `cmap='coolwarm'`
+- color: insert 'b' for blue, 'r' for red, etc or rgb hexcode (#000000). e.g. `color='red'`
+- cmap: uses a color palette, for when varied colors are required e.g. `cmap='coolwarm'`
 
-- alpha - transparency (0 to 1) e.g.`alpha=0.5`
-- lw - linewidth (integers) e.g. `lw=3`
-- ls - linestyle ('-', '--', ':', etc) e.g.`ls='--'`
-- edgecolor - ('black', etc) e.g. `edgecolor='black'`
-- marker - 'o', '*', '+', etc
+- alpha: transparency (0 to 1) e.g.`alpha=0.5`
+- lw: linewidth (integers) e.g. `lw=3`
+- ls: linestyle ('-', '--', ':', etc) e.g.`ls='--'`
+- edgecolor: ('black', etc) e.g. `edgecolor='black'`
+- marker: 'o', '*', '+', etc
     
-Others include: markerfacecolor, markeredgewidth, markeredgecolor, etc
+Others: markerfacecolor, markeredgewidth, markeredgecolor, etc
 
 <a id="matplotlib"></a>
 ### matplotlib
@@ -100,7 +100,7 @@ ax2.title('ax2')
 
 ```
 
-Plotting multiple figures
+Plotting multiple figures (e.g. 2 x 2 or 3 x 3)
 
 ```python
 
@@ -135,6 +135,7 @@ titanic = sns.load_dataset('titanic') #to load dataset
 sns.set_palette('GnBu_d')
 sns.set_style('whitegrid') #or darkgrid, etc
 
+#different types of plots
 sns.countplot(x='col1', data=df) #data is the dataframe. count plot gives count for categorical data. palette='RdBu' gives a red blue color.
 sns.distplot(x='col1', data=df, bins=50, kde=False, rug=True) #histogram; kde=True smooths the histogram, rug=False removes markers at bottom of chart to indicate density
 sns.barplot(x='col1', y='col2', data=df, estimator=np.median) #estimator is the chosen method used in the plot. if unspecified it uses mean. 
@@ -199,13 +200,10 @@ df.scatter_matrix() #similar to pair plot in seaborn
 
 Shortcuts for pandas formatting:
 
-To include the title - `df.plot(title='_')`
-
-To include figsize - `df.plot(figsize=(12,3))`
-
-To include the legend - `df.hist().legend(bbox_to_anchor=(1,1))`
-
-To plot subplots - `df.plot(subplots=True)`
+- To include the title - `df.plot(title='_')`
+- To include figsize - `df.plot(figsize=(12,3))`
+- To include the legend - `df.hist().legend(bbox_to_anchor=(1,1))`
+- To plot subplots - `df.plot(subplots=True)`
 
 <a id="plotly"></a>
 ### Plotly (and cufflinks)
@@ -220,9 +218,9 @@ cf.go_offline #to work offline
 df.plot() #normal plot
 df.iplot() #interactive plot
 
-#examples
+#examples of different types of plots
 df.iplot(kind='scatter', x='col1', y='col2', mode='markers')
-df.iplot(kind='bar', x='col1', y='col2') #another type: df.count.iplot(kind='bar'). also possible to replace count with sum()
+df.iplot(kind='bar', x='col1', y='col2')
 df.iplot(kind='box')
 df.iplot(kind='surface')
 df.iplot(kind='bubble', x='col1', y='col2', size='col3')
