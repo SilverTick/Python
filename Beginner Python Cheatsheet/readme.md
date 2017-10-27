@@ -46,9 +46,11 @@ __4 - Manipulating the Data__
 - Some useful snippets of code
 
 __5 - Visualizing the Data__
-- Using Pandas
+- General code
 - Using matplotlib
 - Using seaborn
+- Using Pandas
+- Using Plotly
 
 __6 - Machine Learning__
 - General Format
