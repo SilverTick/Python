@@ -114,10 +114,10 @@ __CONGRATULATIONS!!!__ You are officially DONE. With the deployment haha - the r
 ---
 
 _*Optional: Create a .gitignore file_ (this tells git which files to ignore so that they are not uploaded to Github)
-1. Go to ‘https://www.gitignore.io/'
+1. Go to https://www.gitignore.io/
 2. Search what programs you use to code with - for me, it’s ‘Python’, ‘MacOS’, ‘VisualStudioCode’ - so they can customise the code for you.
 3. Copy all the text generated
 In Visual Studio Code:
 4. Input `touch .gitignore` to create the file
-5. You can open the .gitignore file manually to paste it in. To do this, click ‘File’, ‘Open’, and open the entire folder. Do not open just the individual file. You want to the see the entire folder content on the left of the screen. Double-click on .gitignore, and paste all the text in, and save it. Alternatively, you can input ‘echo “text”>>.gitignore’ - replace text with the text you copied. This writes all the text into the file.
-7. If there is a particular file in the directory you want to ignore (for e.g. testing.txt), type the filename in right at the very top ’testing.txt’
+5. You can open the .gitignore file manually to paste it in. To do this, click ‘File’, ‘Open’, and open the entire folder. Do not open just the individual file. You want to the see the entire folder content on the left of the screen. Double-click on .gitignore, and paste all the text in, and save it. Alternatively, you can input `echo “text”>>.gitignore` - replace text with the text you copied. This writes all the text into the file.
+7. If there is a particular file in the directory you want to ignore (for e.g. testing.txt), type the filename in right at the very top ’testing.txt’. You should see that even if you make changes to this file, VSC will not ask you to commit changes on it.
