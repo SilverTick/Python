@@ -468,7 +468,17 @@ plt.tight_layout()
 #
 #
 
+#replace
+df_nonull['Time'].replace('Morning', '9:00',inplace=True)
 
+
+#convert Date to datetime
+test['Date'] = pd.to_datetime(test['Date'])
+
+#convert Time to datetime
+test['Time'] = test['Time'].apply(lambda timing: datetime.datetime.strptime(timing, '%H:%M').time())
+
+type(test['Time'][0])
 
 
 ###plotly and cufflinks

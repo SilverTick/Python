@@ -73,7 +73,7 @@ deciles = df.quantile(quantiles)
 ### Categorical data exploration
 
 ```python
-df['col'].value_counts() #returns the number of times each unique value occurs. for just top 5, use df['col'].value_counts().head()
+df['col'].value_counts(dropna=False) #returns the number of times each unique value occurs. for just top 5, use df['col'].value_counts().head()
 
 df['col'].value_counts(normalize=True) #returns the same, in percentage
 
