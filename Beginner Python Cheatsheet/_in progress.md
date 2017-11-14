@@ -712,7 +712,7 @@ print(knn.score(X_test, y_test))
 for knn, important to ensure similar scales
 
 from sklearn.preprocessing import StandardScaler
-scaler = StandardScaler
+scaler = StandardScaler()
 scaler.fit(df.drop('TARGET CLASS', axis=1))
 scaled_features = scaler.transform(df.drop('TARGET CLASS', axis=1))
 df_feat = pd.DataFrame(scaled_features, columns=df.columns[:-1]) #gives the scaled data in a df
@@ -1246,3 +1246,192 @@ print(classification_report(label_test,predictions))
 
 df.groupby('col').mean()
 df.groupby('col').mean().corr() #returns correlation
+
+
+---
+
+# Tensorflow
+
+```python
+import tensor flow as tf
+hello = tf.constant('Hello World')
+
+sess = tf.Session()
+sess.run(hello)
+
+```
+
+```python
+x = tf.constant(2)
+y = tf.constant(3)
+
+with tf.Session() as sess:
+    print('Operations with Constants')
+    print('Addition: ', sess.run(x+y))
+
+```
+
+```python
+x = tf.placeholder(tf.int32)
+y = tf.placeholder(tf.int32)
+add = tf.add(x,y)
+mul = tf.mul(x,y) #builtin multiplication
+
+d = {x:20, y:30}
+
+with tf.Session() as sess:
+    print('Operations with Constants')
+    print('Addition: ', sess.run(add, feed_dict=d))
+
+a = np.array([[5.0,5.0]])
+b = np.array([[2.0],[2.0]])
+
+mat1 = tf.constant(a)
+mat2 = tf.constant(b)
+
+matrix_multi = tf.matmul(mat1,mat2)
+
+with tf.Session() as sess:
+    result = sess.run(matrix_multi)
+    print(result)
+```
+
+---
+
+```python
+import tensor flow as tf
+from tensorflow.examples.tutorials.mnist import input_data
+
+mnist = input_data.read_data_sets("/tmp/data",one_hot=True)
+type(mnist)
+
+sample = mnist.train.images[2].reshape(28,28)
+
+import matplotlib.pyplot as plt
+%matplotlib inline
+
+plt.imshow(sample, cmap='Greys')
+
+learning_rate = 0.001
+training_epochs = 15
+batch_size = 100
+
+n_classes = 10
+n_samples = mnist.train.num_examples
+
+n_input = 784
+
+n_hidden_1 = 256 #8 bit color storage - usually 256 for pics?
+n_hidden_2 = 256
+
+def multilayer_perceptron(x,weights,biases):
+    """
+    x: Placeholder for Data Input
+    weights: dict of weights
+    biases: dist of bias values
+
+    """
+
+# First hidden layer with RELU Activation
+# X * W + B
+layer_1 = tf.add(tf.matmul(x,weights['h1']),biases['b1'])
+# Func(X * W + B) = RELU -> f(x) = max(0,x)
+layer_1 = tf.nn.relu(layer_1)
+
+# Second hidden layer with RELU Activation
+# X * W + B
+layer_2 = tf.add(tf.matmul(layer_1,weights['h2']),biases['b2'])
+# Func(layer_1 * W + B) = RELU -> f(x) = max(0,x)
+layer_1 = tf.nn.relu(layer_1)
+
+# Last Output layer
+out_layer = tf.matmul(layer_2,weights['out']) + bias['out']
+
+return out_layer
+
+weights = {
+    'h1': tf.Variable(tf.random_normal([n_input,n_hidden_1]))
+    'h2': tf.Variable(tf.random_normal([n_hidden_1,n_hidden_2]))
+    'out': tf.Variable(tf.random_normal([n_hidden_2,n_classes]))
+}
+
+biases = {
+    'b1': tf.Variable(tf.random_normal([n_hidden_1]))
+    'b2': tf.Variable(tf.random_normal([n_hidden_2]))
+    'out': tf.Variable(tf.random_normal([n_classes]))
+
+}
+
+x = tf.placeholder('float', [None,n_input])
+y = tf.placeholder('float', [None,n_classes])
+
+pred = multilayer_perceptron(x,weights,biases)
+
+cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(pred,y))
+optimizer = tf.train.AdamOptimiser(learning_rate=learning_Rate).minimize(cost)
+
+
+# to run the session
+
+sess = tf.InteractiveSession()
+
+init = tf.initialise_all_variables()
+
+sess.run(init)
+
+#15 loops
+for epoch in range(training_epochs):
+    #cost
+    avg_cost = 0.0
+    
+    total_batch = int(n_sample/batch_size)
+
+    for i in range(total_batch):
+        batch_x, batch_y = mnist.rain.next_batch(batch_size)
+        _,c = sess.run([optimizer,cost],feed_dict={x:batch_x, y:batch_y})
+
+        avg_cost += c/total_batch
+
+    print("Epoch: {} cost{:.4f}".format(epoch+1,avg_cost))
+
+print("Model has completed {} Epochs of training".format(training_epochs))
+
+# model evaluation
+
+correct_predictions = tf.equal(f.argmax(pred,1), tf.argmax(y,1))
+correct_predictions = tf.cast(correct_predictions,'float')
+
+accuracy = tf.reduce_mean(correct_predictions)
+accuracy.eval({x:mnist.test.images, y:mnist.test.labels})
+
+```
+
+```python
+
+# SKflow
+
+from sklearn.datasets import load_iris
+iris = load_iris()
+iris.keys()
+
+X = iris['data']
+y = iris['target']
+
+from sklearn.cross_validation import train_Test_split
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_Size=0.3)
+
+import tensorflow.contrib.learn.python.learn as learn
+
+classifier = learn.DNNClassifier(hidden_units=[10,20,10], n_classes=3)#hidden units is nodes per layer.
+
+classifier.fit(X_train,y_train,steps=200,batch_size=32)
+
+iris_predictions = classifier.predict(X_test)
+
+from sklearn.metrics import classification_Report,confusion_matrix
+
+print(classification_report(y_test,iris_predictions))
+
+#tweak steps, hidden units or batch size to adjust
+```

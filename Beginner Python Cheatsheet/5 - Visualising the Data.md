@@ -137,7 +137,7 @@ sns.set_style('whitegrid') #or darkgrid, etc
 
 #different types of plots
 sns.countplot(x='col1', data=df) #data is the dataframe. count plot gives count for categorical data. palette='RdBu' gives a red blue color.
-sns.distplot(x='col1', data=df, bins=50, kde=False, rug=True) #histogram; kde=True smooths the histogram, rug=False removes markers at bottom of chart to indicate density
+sns.distplot(df['col1'], bins=50, kde=False, rug=True) #histogram; kde=True smooths the histogram, rug=False removes markers at bottom of chart to indicate density
 sns.barplot(x='col1', y='col2', data=df, estimator=np.median) #estimator is the chosen method used in the plot. if unspecified it uses mean. 
 sns.pointplot(x='col1', y='col2', data=df) #line plot with point markers
 sns.boxplot(x='col1', y='col2', data=df)

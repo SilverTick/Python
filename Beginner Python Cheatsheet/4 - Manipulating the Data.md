@@ -27,11 +27,17 @@ df['new_col'] = list #creates new column with values corresponding to the list.
 zipped = zip(df['col_a'], df['col_b']) #returns a list of tuples, with values from col_a and col_b. to display in a list, use list(zip(df['col_a'], df['col_b']))
 zip(*zipped) #to unzip. to display it in a list, use list(zip(*zipped))
 
+d = {'male': 1, 'female': 0}
+df['Sex_numerical'] = df['Sex'].map(d) #creates a new column, where male is represented by 1, and female by 0.
+
 ```
 
 Dropping rows/ columns
 ```python
 df.drop('col', axis=1, inplace=True) #drops the specified column. inplace=True automatically saves it to df without an additional step, axis=1 sets it as a column instead of row.
+
+df_nonull = df[pd.notnull(df['col'])]
+#only takes rows that are not null in the column.
 
 ```
 
