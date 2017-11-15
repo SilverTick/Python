@@ -1435,3 +1435,19 @@ print(classification_report(y_test,iris_predictions))
 
 #tweak steps, hidden units or batch size to adjust
 ```
+
+
+
+df_new = pd.merge(df, df_coo[['Carpark Name','Coord_rad']], on='Carpark Name')
+df_new.tail()
+
+
+left_on
+
+right_on
+
+
+
+---
+
+csv[csv['Carpark Name'].str.contains("Sentosa")]
