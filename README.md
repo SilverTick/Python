@@ -19,3 +19,7 @@ A small project as a first trial of my website scraping skills ;) (in progress)
 
 #### Mathematics
 - [Project Euler](https://github.com/yinglinglow/Python/blob/master/Hobby%20Projects/Project%20Euler.ipynb): Computational problems from [Project Euler](https://projecteuler.net/) (in progress)
+
+#### Learning R after Python
+
+My attempt to play with the Titanic Dataset with both Python (in Jupyter Notebook) and R (in RStudio). It is not so much as to achieve the best prediction, but rather to understand the R syntax. Check the notebooks out [here](https://github.com/yinglinglow/Python/tree/master/Python_to_R_Project)! (in progress)
