@@ -1,6 +1,8 @@
 
 # 5 - Visualising the Data
 
+After you actually have a somewhat complete, clean and organised dataset, it's time to understand what the data is actually saying! Are there any obvious trends?
+
 __Table of Contents__
  * Data visualisation
     - [General](#general)

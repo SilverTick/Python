@@ -1,6 +1,17 @@
 
 # 2 - Exploring the Data
 
+What are we looking out for when we are exploring our data?
+
+First and foremost, we need our data to be complete and accurate. <br>
+Hence we think about the below:<br>
+1) How is the data structured - what does each row/column represent?<br>
+2) Is the data complete? Look for missing data (null values)<br>
+3) Is the data accurate? Look for illogical values (e.g. negative age)<br>
+
+This is a very basic start - as you get more proficient in the Data field, you will discover that there is a lot more to data exploration, cleaning and manipulation!
+
+
 __Table of Contents__
  * Data exploration
     - [Basic data structure](#structure)
