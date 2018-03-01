@@ -26,49 +26,40 @@ __Table of Contents__
 ```python
 
 import pandas as pd
-df = pd.read_csv('file.csv')
-df
+df = pd.read_csv('/Users/abc/Documents/folder/file.csv')
 
 ```
 
-If your file is not in the same folder, right click the file to 'Get Info'. Copy the 'Where' location and paste it, such that instead of `'file.csv'` your file path is `'/Users/abc/Documents/untitled folder/file.csv'`.
+If somehow there is an error reading the file, try tweaking around with: header=None, sep='delimiter', skiprows=2 (this skips the first two rows which might not be data), or error_bad_lines=False (this skips errors).
 
-To read null values and dates correctly, use the below code instead. 
+To read in null values correctly, replace `'NAN'` with the current shortform for your NA values.
+
+To read in dates as the datetime format, replace `'date_column'` with the name of your column containing dates. 
+
+To set the first column as the index, use index_col=0.
 
 ```python
 
 import pandas as pd
 df = pd.read_csv('file.csv', na_values='NAN', parse_dates=['date_column'], error_bad_lines=False, header=None, index_col=0)
-df
 
 ```
 
-Replace `'NAN'` with the current shortform for your NA values, and replace `'date_column'` with the name of your column containing dates. index_col=0 sets the first column as the index.
-
-If somehow there is an error reading the file, try tweaking around with: header=None, sep='delimiter', skiprows=2 (this skips the first two rows which might not be data), or error_bad_lines=False (this skips errors).
 
  <a id="excel"></a>
 ### Excel files
 
-This first method is quicker if you just want a couple of sheets from the excel file. Replace `'sheetname'` with the name of the sheet you want to import. Default is the first sheet if `sheetname` is not specified. Again you can include `na_values` to convert those.
+Default is `sheet_name = 0` which only takes in the first sheet of the excel. To read in all sheets, use `sheet_name = None` which returns all sheets as a dictionary of dataframes. You can also specify say [1,2,5] to return the second, third and 6th sheet as a dictionary of dataframes.
+
+To read in null values correctly, replace `'NAN'` with the current shortform for your NA values.
 
 ```python
 
 import pandas as pd
-df = pd.read_excel('file.xlsx', na_values='NAN', sheetname='sheetname')
+df = pd.read_excel('file.xlsx', na_values='NAN', sheet_name='0')
 
 ```
 
-If you have a huge Excel file with many sheets and you need to explore first, OR if you want to loop through multiple sheets, use the below.
-
-```python
-
-import pandas as pd
-xl = pd.ExcelFile('file.xlsx')
-xl.sheetnames #returns names of all the sheets in the file
-df = xl.parse
-
-```
 
 <a id="json"></a>
 ### JSON files 
@@ -84,7 +75,7 @@ df
 <a id="mssql"></a>
 ## Connecting to servers such as MSSQL
 
-https://gist.github.com/hunterowens/08ebbb678255f33bba94
+Check this out: [https://gist.github.com/hunterowens/08ebbb678255f33bba94](https://gist.github.com/hunterowens/08ebbb678255f33bba94)
 
 Using SQLalchemy to create an engine to connect to SQLite/ PostgreSQL is also possible I believe, but the code seems bulkier.
 
@@ -100,11 +91,11 @@ Pandas Datareader is able to easily extract data from some sources, including: Y
 from pandas_datareader.data import DataReader 
 from datetime import date 
 
-#Set your variables
-start = date(YYYY, MM, DD) #for example, 2010-1-1
-end = date(YYYY, MM, DD) #default date is today
-data_source = 'google' #the source of your data. find the full list from the above link
-ticker = 'AAPL' #the ticker symbol of your stock
+# Set your variables
+start = date(YYYY, MM, DD) # for example, 2010-1-1
+end = date(YYYY, MM, DD) # default date is today
+data_source = 'google' # the source of your data. find the full list from the above link
+ticker = 'AAPL' # the ticker symbol of your stock
 
 stock_prices = DataReader(ticker, data_source, start, end)
 
@@ -142,6 +133,7 @@ for row in df['Address']:
 ```
 <a id="text"></a>
 ### Text (using BeautifulSoup)
+
 ```python
 
 import pandas as pd
@@ -160,12 +152,12 @@ All the information is now in the variable soup. If I want to extract certain in
 
 ```python
 
-title = soup.title #gives the title, including the tags
-title.text.strip() #strips the tags away leaving the text
+title = soup.title # gives the title, including the tags
+title.text.strip() # strips the tags away leaving the text
 
-box = soup.find(class_="graybox") #finds the input. works for many things including class, p, etc
+box = soup.find(class_="graybox") # finds the input. works for many things including class, p, etc
 
-links = soup.find_all('a') #finds all the links
+links = soup.find_all('a') # finds all the links
 
 ```
 

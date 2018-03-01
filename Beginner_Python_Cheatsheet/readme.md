@@ -13,7 +13,7 @@ Standard terms used below - replace with your own:
 - _file_ for filenames
 - _database_ for databases
 
-I usually use pandas where possible, just because it is so much more efficient and straightforward.
+I use quite a fair bit of pandas (it's a library for the uninitiated), just because it is so much more efficient and straightforward.
 
 This is very much still a work in progress so do pardon the messiness for now.
 I am also just still learning so if there are any areas of improvement, please do share.
@@ -21,10 +21,6 @@ I am also just still learning so if there are any areas of improvement, please d
 Enjoy!
 
 ---
-
-__0 - General tips & tricks__
-
-Random formats for reference, or useful or interesting tips that I find helpful/speeds things up!
 
 __1 - Getting Data In__
 - Importing data from a file (CSV, Excel or JSON)
@@ -56,3 +52,6 @@ __6 - Machine Learning__
 - General Format
 - Linear Regression
 - Logistic Regression
+
+__10 - General tips & tricks__
+Random formats for reference, or useful or interesting tips that I find helpful/speeds things up!
