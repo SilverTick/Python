@@ -53,5 +53,5 @@ __6 - Machine Learning__
 - Linear Regression
 - Logistic Regression
 
-__10 - General tips & tricks__<br>
+__10 - General tips & tricks__<br><br>
 Random formats for reference, or useful or interesting tips that I find helpful/speeds things up!
