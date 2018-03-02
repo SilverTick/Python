@@ -13,8 +13,17 @@ __Table of Contents__
 <a id="structure"></a> 
 ## Changing data structure
 
+Creating a dataframe from a dictionary
+
+```python
+
+df = pd.DataFrame(dictionary)
+
+```
+
 Joining dataframes/ adding rows/ adding columns
 ```python
+
 import pandas as pd
 pd.concat([df, df2]) #appends df2 at the bottom of df as additional rows. to have labels, include labels as a list to keys. to append as new columns instead of rows, include axis=1 like so: pd.concat([df,df2], axis=1, keys=[tablename1, tablename2])
 
@@ -108,4 +117,19 @@ returns = pd.DataFrame() #create empty dataframe named return
 for tick in tickers:
     returns[tick+' Return'] = bank_stocks[tick]['Close'].pct_change() #creates new column, with the percentage change in Close
 
+```
+
+If the value is a list, create a new column for each item in the list.<br>
+Note: isinstance checks the type of an item, and is better than type() because it supports inheritance (read more [here](https://stackoverflow.com/questions/1549801/what-are-the-differences-between-type-and-isinstance))
+
+```python
+
+# for each activity in the activity_log list, create a new column
+def expand(row, col):
+    activities = row[col] if isinstance(row[col], list) else [row[col]]
+    s = pd.Series(row['user_id'], index=list(set(activities)))
+    return s
+
+# melt the columns so that each activity forms one additional row for each user
+df_melted = df.apply(expand, col='activity_log', axis=1).stack().reset_index()
 ```
